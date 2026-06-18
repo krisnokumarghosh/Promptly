@@ -1,4 +1,3 @@
-// components/Navbar.jsx
 "use client";
 
 import { useState } from "react";
@@ -16,19 +15,19 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState("Home");
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4">
       <nav className="flex items-center justify-between gap-8 px-6 h-14 w-full max-w-215 bg-white/6 backdrop-blur-xl border border-white/12 rounded-full mt-5">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-none">
           <span className="text-[#95FF00] font-extrabold text-[18px] leading-none">
             <FolderCode />
           </span>
-          <span className={`${jetbrainsMono.className} text-[#95FF00] font-bold text-[13px] tracking-[0.14em] uppercase`}>
+          <span
+            className={`${jetbrainsMono.className} text-[#95FF00] font-bold text-[13px] tracking-[0.14em] uppercase`}
+          >
             Promptly
           </span>
         </Link>
 
-        {/* Nav Links */}
         <div className="hidden md:flex items-center gap-3">
           {NAV_LINKS.map(({ label, href }) => {
             const isActive = activeLink === label;
@@ -50,7 +49,6 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right */}
         <div>
           <div className="md:hidden">
             <Drawer>
@@ -119,3 +117,4 @@ export default function Navbar() {
     </div>
   );
 }
+ 
