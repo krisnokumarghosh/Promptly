@@ -67,7 +67,7 @@ export default function BuiltForNextEra() {
   const isDone = displayed.length === READY_TEXT.length;
 
   return (
-    <section ref={sectionRef} className="bg-[#080d08] py-24 px-6">
+    <section ref={sectionRef} className="bg-[#080d08] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <div>
           <h2 className="text-[clamp(28px,3.5vw,42px)] font-extrabold text-white leading-[1.2] tracking-tight mb-10">

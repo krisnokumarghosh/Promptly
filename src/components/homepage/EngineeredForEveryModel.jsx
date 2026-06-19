@@ -13,7 +13,7 @@ const MODELS = [
 
 export default function EngineeredForEveryModel() {
   return (
-    <section className="bg-[#080d08e3] py-24 px-6">
+    <section className="bg-[#080d08e3] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto text-center">
 
         {/* Title */}

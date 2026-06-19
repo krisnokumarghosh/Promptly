@@ -59,7 +59,7 @@ export default function Navbar() {
               <Drawer.Backdrop>
                 <Drawer.Content placement="left">
                   <Drawer.Dialog className="bg-white/6 backdrop-blur-xl border border-none w-50">
-                    <Drawer.CloseTrigger />
+                    <Drawer.CloseTrigger  className="bg-[#95FF00] text-black"/>
 
                     <Drawer.Body>
                       <nav className="flex flex-col gap-3">
