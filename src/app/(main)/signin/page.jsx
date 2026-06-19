@@ -16,8 +16,16 @@ import { ImTerminal } from "react-icons/im";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { TypeAnimation } from "react-type-animation";
+import { jetbrainsMono } from "@/lib/fonts";
 
-export default function SignupPage() {
+const TERMINAL_LINES = [
+  { label: "Memory Layer:", value: "ACTIVE" },
+  { label: "Creativity Engine:", value: "ONLINE" },
+  { label: "Prompt Network:", value: "CONNECTED" },
+];
+
+export default function SigninPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   function onSubmit(e) {
@@ -54,7 +62,7 @@ export default function SignupPage() {
       >
         {/* ── LEFT PANEL ── */}
         <div
-          className=" flex flex-col justify-between md:w-5/12 p-10 relative overflow-hidden"
+          className=" flex flex-col gap-10 justify-between md:w-5/12 p-10 relative overflow-hidden"
           style={{
             background:
               "linear-gradient(145deg, #1a2a0a 0%, #0d1a06 40%, #0a0a0a 100%)",
@@ -107,14 +115,53 @@ export default function SignupPage() {
             >
               Your Prompts.
               <br />
-              <span className="text-[#95FF00]">Your Power.</span>
+              <span className="text-[#95FF00]">Still Here.</span>
               <br />
-              Your Future.
+              Wating.
             </h2>
             <p className="text-sm leading-relaxed text-[#6b7280]">
-              Engineer high-precision AI prompts and take control of your neural
-              workflow — only you own your creations.
+              Pick up where you left off and unlock your AI-powered workflow.
             </p>
+          </div>
+
+          <div className=" flex items-center justify-center ">
+            <div className="relative z-10 w-full h-65 bg-[#111711] border border-white/8 rounded-[14px] overflow-hidden">
+              <div className="flex items-center gap-1.75 px-4 py-3.5 border-b border-white/6 bg-white/2">
+                <span className="w-2.75 h-2.75 rounded-full bg-[#ff5f57]" />
+                <span className="w-2.75 h-2.75 rounded-full bg-[#febc2e]" />
+                <span className="w-2.75 h-2.75 rounded-full bg-[#28c840]" />
+              </div>
+
+              <div
+                className={`${jetbrainsMono.className} px-5 py-5 text-[12px] leading-[1.8]`}
+              >
+                <p className="text-[#AAFF00]/35 text-[10px] tracking-widest mb-3">
+                  {" > INITIALIZING HUMAN x AI INTERFACE"}
+                </p>
+
+                {TERMINAL_LINES.map(({ label, value }) => (
+                  <div key={label} className="flex gap-2">
+                    <span className="text-white/45">{label}</span>
+                    <span className="text-white/70">{value}</span>
+                  </div>
+                ))}
+
+                <p className="text-[#AAFF00] font-bold mt-4">
+                  <span className="mr-2">{">"}</span>
+                  <TypeAnimation
+                    sequence={[
+                      " BEGIN CREATING AND EXPLORING",
+                      2000, // full text দেখাবে 2s
+                      "", // erase
+                      800, // pause
+                    ]}
+                    speed={55}
+                    repeat={Infinity}
+                    cursor={true}
+                  />
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -122,11 +169,9 @@ export default function SignupPage() {
         <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold mb-1 text-[#f9fafb]">
-              Create an Account
-            </h1>
+            <h1 className="text-2xl font-bold mb-1 text-[#f9fafb]">Sign In</h1>
             <p className="text-sm text-[#6b7280]">
-              Enter your details to join the Neural Marketplace
+              Enter your credentials to access your workspace
             </p>
           </div>
 
@@ -148,54 +193,6 @@ export default function SignupPage() {
 
           {/* Form */}
           <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
-            {/* Role radio */}
-            <div className="flex flex-col gap-4 my-3">
-              <RadioGroup
-                defaultValue="user"
-                name="user-role"
-                orientation="horizontal"
-              >
-                <Radio value="user">
-                  <Radio.Content className="text-white">
-                    <Radio.Control className="bg-[#95FF00]">
-                      <Radio.Indicator />
-                    </Radio.Control>
-                    User
-                  </Radio.Content>
-                </Radio>
-                <Radio value="creator">
-                  <Radio.Content className="text-white">
-                    <Radio.Control className="bg-[#95FF00]">
-                      <Radio.Indicator />
-                    </Radio.Control>
-                    Creator
-                  </Radio.Content>
-                </Radio>
-              </RadioGroup>
-            </div>
-
-            <TextField isRequired name="username" className="flex-1">
-              <Label className="text-xs mb-1 block text-[#9ca3af]">
-                Username
-              </Label>
-              <Input
-                placeholder="john_doe"
-                className="w-full px-3 py-2.5 rounded-lg text-sm outline-none transition-all duration-150 bg-[#1a1a1a] border border-[#2a2a2a] focus:ring-[#95FF00] text-white"
-              />
-              <FieldError className="text-xs mt-1 text-red-400" />
-            </TextField>
-
-            <TextField isRequired name="image" className="flex-1">
-              <Label className="text-xs mb-1 block text-[#9ca3af]">
-                Image URL
-              </Label>
-              <Input
-                placeholder="Enter Image Url"
-                className="w-full px-3 py-2.5 rounded-lg text-sm outline-none transition-all duration-150 bg-[#1a1a1a] border border-[#2a2a2a] focus:ring-[#95FF00] text-white"
-              />
-              <FieldError className="text-xs mt-1 text-red-400" />
-            </TextField>
-
             <TextField
               isRequired
               name="email"
@@ -245,28 +242,16 @@ export default function SignupPage() {
                   {showPassword ? <EyeSlash /> : <Eye />}
                 </Button>
               </div>
-              <Description
-                className="text-xs mt-1"
-                style={{ color: "#4b5563" }}
-              >
-                <span className="flex items-center gap-1">
-                  <span>○</span> Must have special symbols or uppercase
-                </span>
-                <span className="flex items-center gap-1">
-                  <span>○</span> At least 8 characters with 1 number
-                </span>
-              </Description>
+
               <FieldError className="text-xs mt-1 text-red-400" />
             </TextField>
-
-            {/* Confirm Password */}
 
             {/* Submit */}
             <Button
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-sm mt-1 transition-all duration-150 hover:opacity-90 active:scale-95 bg-[#95FF00] text-black"
             >
-              Sign Up →
+              Sign In →
             </Button>
           </Form>
 
@@ -274,8 +259,8 @@ export default function SignupPage() {
 
           <p className="text-xs text-center mt-3" style={{ color: "#4b5563" }}>
             Already have an account?{" "}
-            <Link href="/signin" className="font-medium text-[#95FF00]">
-              Login
+            <Link href="/signup" className="font-medium text-[#95FF00]">
+              Register
             </Link>
           </p>
         </div>

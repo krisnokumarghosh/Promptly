@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import { jetbrainsMono } from "@/lib/fonts";
 import { Fingerprint, PlugWire, Rocket } from "@gravity-ui/icons";
+import { TypeAnimation } from "react-type-animation";
 
 const FEATURES = [
   {
@@ -28,46 +28,9 @@ const TERMINAL_LINES = [
   { label: "Temperature calibration:", value: "0.7" },
 ];
 
-const READY_TEXT = "> READY FOR DEPLOYMENT";
-
 export default function BuiltForNextEra() {
-  const [displayed, setDisplayed] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-  const timeoutRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.3 },
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let index = 0;
-
-    const tick = () => {
-      index += 1;
-      if (index <= READY_TEXT.length) {
-        setDisplayed(READY_TEXT.slice(0, index));
-        timeoutRef.current = setTimeout(tick, 55);
-      }
-    };
-
-    timeoutRef.current = setTimeout(tick, 55);
-    return () => clearTimeout(timeoutRef.current);
-  }, [isVisible]);
-
-  const isDone = displayed.length === READY_TEXT.length;
-
   return (
-    <section ref={sectionRef} className="bg-[#080d08] py-10 md:py-24 px-6">
+    <section className="bg-[#080d08] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <div>
           <h2 className="text-[clamp(28px,3.5vw,42px)] font-extrabold text-white leading-[1.2] tracking-tight mb-10">
@@ -118,14 +81,19 @@ export default function BuiltForNextEra() {
                 </div>
               ))}
 
-              <p className="text-[#AAFF00] font-bold mt-4 flex items-center gap-1">
-                {displayed}
-                {!isDone && (
-                  <span className="inline-block w-0.5 h-3.25 bg-[#AAFF00] animate-pulse ml-px translate-y-px" />
-                )}
-                {isDone && (
-                  <span className="inline-block w-2 h-3.5 bg-[#AAFF00] animate-pulse ml-0.5" />
-                )}
+              <p className="text-[#AAFF00] font-bold mt-4">
+                <span className="mr-2">{">"}</span>
+                <TypeAnimation
+                  sequence={[
+                    "READY FOR DEPLOYMENT",
+                    2000, // full text দেখাবে 2s
+                    "", // erase
+                    800, // pause
+                  ]}
+                  speed={55}
+                  repeat={Infinity}
+                  cursor={true}
+                />
               </p>
             </div>
           </div>
