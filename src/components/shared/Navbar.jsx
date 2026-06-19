@@ -59,28 +59,30 @@ export default function Navbar() {
               <Drawer.Backdrop>
                 <Drawer.Content placement="left">
                   <Drawer.Dialog className="bg-white/6 backdrop-blur-xl border border-none w-50">
-                    <Drawer.CloseTrigger  className="bg-[#95FF00] text-black"/>
+                    <Drawer.CloseTrigger className="bg-[#95FF00] text-black" />
 
                     <Drawer.Body>
-                      <nav className="flex flex-col gap-3">
-                        {NAV_LINKS.map(({ label, href }) => {
-                          const isActive = activeLink === label;
-                          return (
-                            <Link
-                              key={label}
-                              href={href}
-                              onClick={() => setActiveLink(label)}
-                              className={[
-                                "text-[13px] px-3 py-1.5  transition-all duration-150 w-25",
-                                isActive
-                                  ? "text-[#95FF00]  font-semibold"
-                                  : "text-white/70 hover:text-white  font-normal",
-                              ].join(" ")}
-                            >
-                              {label}
-                            </Link>
-                          );
-                        })}
+                      <nav className="flex flex-col gap-3 h-full justify-between">
+                        <div className="flex flex-col gap-3">
+                          {NAV_LINKS.map(({ label, href }) => {
+                            const isActive = activeLink === label;
+                            return (
+                              <Link
+                                key={label}
+                                href={href}
+                                onClick={() => setActiveLink(label)}
+                                className={[
+                                  "text-[13px] px-3 py-1.5  transition-all duration-150 w-25",
+                                  isActive
+                                    ? "text-[#95FF00]  font-semibold"
+                                    : "text-white/70 hover:text-white  font-normal",
+                                ].join(" ")}
+                              >
+                                {label}
+                              </Link>
+                            );
+                          })}
+                        </div>
                         <div className="flex flex-col gap-3 ">
                           <Link href={"/signin"}>
                             <Button
@@ -118,4 +120,3 @@ export default function Navbar() {
     </div>
   );
 }
- 

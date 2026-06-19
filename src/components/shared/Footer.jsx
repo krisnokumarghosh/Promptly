@@ -80,14 +80,11 @@ export default function Footer() {
                 {category}
               </p>
               <ul className="flex flex-col gap-2.5">
-                {links.map(({ label, href }) => (
+                {links.map(({ label }) => (
                   <li key={label}>
-                    <Link
-                      href={href}
-                      className="text-[13px] text-white/45 hover:text-white transition-colors duration-150"
-                    >
+                    <p className="text-[13px] text-white/45 hover:text-white transition-colors duration-150">
                       {label}
-                    </Link>
+                    </p>
                   </li>
                 ))}
               </ul>
