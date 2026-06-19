@@ -16,16 +16,38 @@ import { ImTerminal } from "react-icons/im";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [signingUp, setSigningUp] = useState(false);
 
-  function onSubmit(e) {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    setSigningUp(true);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
 
+    const { data, error } = await authClient.signUp.email({
+      ...formData,
+      plan: "Free",
+    });
+    if (data) {
+      alert("success");
+      setSigningUp(false);
+      redirect("/signin");
+    } else if (error) {
+      alert(error.message);
+      setSigningUp(false);
+    }
     console.log(data);
-  }
+  };
+
+  const handleGoogleSignUp = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
 
   return (
     <div
@@ -132,7 +154,7 @@ export default function SignupPage() {
 
           {/* OAuth buttons */}
           <div className=" mb-6">
-            <Button className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
+            <Button onClick={handleGoogleSignUp} className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
               <FcGoogle /> Google
             </Button>
           </div>
@@ -147,12 +169,12 @@ export default function SignupPage() {
           </div>
 
           {/* Form */}
-          <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+          <Form className="flex flex-col gap-4" onSubmit={handleSignUp}>
             {/* Role radio */}
             <div className="flex flex-col gap-4 my-3">
               <RadioGroup
                 defaultValue="user"
-                name="user-role"
+                name="role"
                 orientation="horizontal"
               >
                 <Radio value="user">
@@ -174,7 +196,7 @@ export default function SignupPage() {
               </RadioGroup>
             </div>
 
-            <TextField isRequired name="username" className="flex-1">
+            <TextField isRequired name="name" className="flex-1">
               <Label className="text-xs mb-1 block text-[#9ca3af]">
                 Username
               </Label>
@@ -266,7 +288,7 @@ export default function SignupPage() {
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-sm mt-1 transition-all duration-150 hover:opacity-90 active:scale-95 bg-[#95FF00] text-black"
             >
-              Sign Up →
+              {signingUp ? "Signing Up..." : " Sign Up →"}
             </Button>
           </Form>
 

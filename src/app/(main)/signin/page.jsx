@@ -18,6 +18,8 @@ import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { TypeAnimation } from "react-type-animation";
 import { jetbrainsMono } from "@/lib/fonts";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const TERMINAL_LINES = [
   { label: "Memory Layer:", value: "ACTIVE" },
@@ -27,13 +29,32 @@ const TERMINAL_LINES = [
 
 export default function SigninPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [signingIn, setSigningIn] = useState(false);
 
-  function onSubmit(e) {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    setSigningIn(true);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
 
-    console.log(data);
-  }
+    const { data, error } = await authClient.signIn.email({
+      ...formData,
+    });
+
+    if (data) {
+      alert("login success");
+      setSigningIn(false);
+      redirect("/");
+    } else if (error) {
+      alert(error.message);
+      setSigningIn(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
 
   return (
     <div
@@ -177,7 +198,7 @@ export default function SigninPage() {
 
           {/* OAuth buttons */}
           <div className=" mb-6">
-            <Button className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
+            <Button onClick={handleGoogleSignIn} className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
               <FcGoogle /> Google
             </Button>
           </div>
@@ -192,7 +213,7 @@ export default function SigninPage() {
           </div>
 
           {/* Form */}
-          <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+          <Form className="flex flex-col gap-4" onSubmit={handleSignIn}>
             <TextField
               isRequired
               name="email"
@@ -251,7 +272,7 @@ export default function SigninPage() {
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-sm mt-1 transition-all duration-150 hover:opacity-90 active:scale-95 bg-[#95FF00] text-black"
             >
-              Sign In →
+              {signingIn ? "Signing In..." : " Sign In →"}
             </Button>
           </Form>
 

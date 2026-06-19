@@ -6,6 +6,8 @@ import { Bars, FolderCode, Magnifier } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { jetbrainsMono } from "@/lib/fonts";
 import { ImTerminal } from "react-icons/im";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -14,6 +16,13 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState("Home");
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+
+  const handleLogOut = async () => {
+    await authClient.signOut();
+    redirect("/");
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4">
@@ -83,21 +92,44 @@ export default function Navbar() {
                             );
                           })}
                         </div>
-                        <div className="flex flex-col gap-3 ">
-                          <Link href={"/signin"}>
+
+                        {isPending ? (
+                          <span className="text-[14px] text-[#95FF00] font-semibold mr-3">
+                            Loading...
+                          </span>
+                        ) : user ? (
+                          <div className="flex flex-col gap-3 ">
                             <Button
+                              onClick={handleLogOut}
                               variant="outline"
                               className="text-[#95FF00]  border-[#95FF00] h-8 w-full"
                             >
-                              Login
+                              Logout
                             </Button>
-                          </Link>
-                          <Link href="/signup">
-                            <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide h-8 rounded-full w-full  transition-colors">
-                              Register
-                            </Button>
-                          </Link>
-                        </div>
+
+                            <Link href="/dashboard">
+                              <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide h-8 rounded-full w-full  transition-colors">
+                                Dashboard
+                              </Button>
+                            </Link>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-3 ">
+                            <Link href={"/signin"}>
+                              <Button
+                                variant="outline"
+                                className="text-[#95FF00]  border-[#95FF00] h-8 w-full"
+                              >
+                                Login
+                              </Button>
+                            </Link>
+                            <Link href="/signup">
+                              <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide h-8 rounded-full w-full  transition-colors">
+                                Register
+                              </Button>
+                            </Link>
+                          </div>
+                        )}
                       </nav>
                     </Drawer.Body>
                   </Drawer.Dialog>
@@ -105,15 +137,40 @@ export default function Navbar() {
               </Drawer.Backdrop>
             </Drawer>
           </div>
-          <div className="hidden md:flex items-center gap-2.5 flex-none">
-            <Link href={"/signin"}>
-              <Button className="text-[#95FF00]  bg-transparent">Login</Button>
-            </Link>
-            <Link href="/signup">
-              <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide  rounded-full  transition-colors">
-                Register
-              </Button>
-            </Link>
+          <div className="hidden md:flex  ">
+            {isPending ? (
+              <span className="text-[14px] text-[#95FF00] font-semibold mr-3">
+                Loading...
+              </span>
+            ) : user ? (
+              <div className="flex items-center gap-2.5">
+                <Button
+                  onClick={handleLogOut}
+                  className="text-[#95FF00]  bg-transparent"
+                >
+                  Logout
+                </Button>
+
+                <Link href="/dashboard">
+                  <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide  rounded-full  transition-colors">
+                    Dashboard
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2.5">
+                <Link href={"/signin"}>
+                  <Button className="text-[#95FF00]  bg-transparent">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide  rounded-full  transition-colors">
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>
