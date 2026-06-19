@@ -49,7 +49,7 @@ const FEATURES = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-[#black] py-24 px-6">
+    <section className="bg-[#080d08e3] py-24 px-6">
       <div className="max-w-225 mx-auto text-center">
         <div className="inline-flex items-center gap-2 bg-[#AAFF00]/8 border border-[#AAFF00]/20 text-[#AAFF00] text-[10px] font-bold tracking-[0.13em] uppercase px-4 py-1.5 rounded-full mb-5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#AAFF00]" />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Bars, FolderCode, Magnifier } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { jetbrainsMono } from "@/lib/fonts";
+import { ImTerminal } from "react-icons/im";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -19,7 +20,7 @@ export default function Navbar() {
       <nav className="flex items-center justify-between gap-8 px-6 h-14 w-full max-w-215 bg-white/6 backdrop-blur-xl border border-white/12 rounded-full mt-5">
         <Link href="/" className="flex items-center gap-2 flex-none">
           <span className="text-[#95FF00] font-extrabold text-[18px] leading-none">
-            <FolderCode />
+            <ImTerminal />
           </span>
           <span
             className={`${jetbrainsMono.className} text-[#95FF00] font-bold text-[13px] tracking-[0.14em] uppercase`}
