@@ -8,16 +8,23 @@ import { jetbrainsMono } from "@/lib/fonts";
 import { ImTerminal } from "react-icons/im";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import Navlink from "./Navlink";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "All-Prompts", href: "/all-prompts" },
 ];
 
-export default function Navbar() {
+const Navbar = () => {
   const [activeLink, setActiveLink] = useState("Home");
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+
+  const dashboardLinks = {
+    creator: "/dashboard/creator",
+    user: "/dashboard/user",
+    admin: "/dashboard/admin",
+  };
 
   const handleLogOut = async () => {
     await authClient.signOut();
@@ -40,21 +47,14 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           {NAV_LINKS.map(({ label, href }) => {
-            const isActive = activeLink === label;
             return (
-              <Link
-                key={label}
+              <Navlink
+                key={href}
                 href={href}
-                onClick={() => setActiveLink(label)}
-                className={[
-                  "text-[13px] px-3 py-1.5  transition-all duration-150",
-                  isActive
-                    ? "text-[#95FF00] border-b border-[#95FF00] font-semibold"
-                    : "text-white/70 hover:text-white  font-normal",
-                ].join(" ")}
+                className="text-[13px] px-3 py-1.5  transition-all duration-150"
               >
                 {label}
-              </Link>
+              </Navlink>
             );
           })}
         </div>
@@ -107,7 +107,7 @@ export default function Navbar() {
                               Logout
                             </Button>
 
-                            <Link href="/dashboard">
+                            <Link href={dashboardLinks[user?.role || "user"]}>
                               <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide h-8 rounded-full w-full  transition-colors">
                                 Dashboard
                               </Button>
@@ -151,7 +151,7 @@ export default function Navbar() {
                   Logout
                 </Button>
 
-                <Link href="/dashboard">
+                <Link href={dashboardLinks[user?.role || "user"]}>
                   <Button className="bg-[#95FF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold  tracking-wide  rounded-full  transition-colors">
                     Dashboard
                   </Button>
@@ -176,4 +176,5 @@ export default function Navbar() {
       </nav>
     </div>
   );
-}
+};
+export default Navbar;

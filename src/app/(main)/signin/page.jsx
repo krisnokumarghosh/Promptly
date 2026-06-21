@@ -7,19 +7,16 @@ import {
   Label,
   Input,
   FieldError,
-  Description,
   Button,
-  RadioGroup,
-  Radio,
 } from "@heroui/react";
 import { ImTerminal } from "react-icons/im";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
-import { TypeAnimation } from "react-type-animation";
 import { jetbrainsMono } from "@/lib/fonts";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import { typeAnimation } from "@/lib/animations";
 
 const TERMINAL_LINES = [
   { label: "Memory Layer:", value: "ACTIVE" },
@@ -27,7 +24,7 @@ const TERMINAL_LINES = [
   { label: "Prompt Network:", value: "CONNECTED" },
 ];
 
-export default function SigninPage() {
+const SigninPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signingIn, setSigningIn] = useState(false);
 
@@ -53,6 +50,8 @@ export default function SigninPage() {
   const handleGoogleSignIn = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
+      role: "user",
+      plan: "free",
     });
   };
 
@@ -77,10 +76,7 @@ export default function SigninPage() {
       </div>
 
       {/* Card */}
-      <div
-        className="relative z-10 w-full max-w-5xl rounded-2xl overflow-hidden  md:flex  shadow-2xl"
-        style={{ background: "#111111", border: "1px solid #1f1f1f" }}
-      >
+      <div className="relative z-10 w-full max-w-5xl rounded-2xl overflow-hidden  md:flex  shadow-2xl bg-[#111111] ">
         {/* ── LEFT PANEL ── */}
         <div
           className=" flex flex-col gap-10 justify-between md:w-5/12 p-10 relative overflow-hidden"
@@ -169,17 +165,7 @@ export default function SigninPage() {
 
                 <p className="text-[#AAFF00] font-bold mt-4">
                   <span className="mr-2">{">"}</span>
-                  <TypeAnimation
-                    sequence={[
-                      " BEGIN CREATING AND EXPLORING",
-                      2000, // full text দেখাবে 2s
-                      "", // erase
-                      800, // pause
-                    ]}
-                    speed={55}
-                    repeat={Infinity}
-                    cursor={true}
-                  />
+                  {typeAnimation("BEGIN CREATING AND EXPLORING")}
                 </p>
               </div>
             </div>
@@ -187,7 +173,7 @@ export default function SigninPage() {
         </div>
 
         {/* ── RIGHT PANEL ── */}
-        <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
+        <div className="flex-1 p-8 md:p-12 flex flex-col justify-center ">
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold mb-1 text-[#f9fafb]">Sign In</h1>
@@ -198,7 +184,10 @@ export default function SigninPage() {
 
           {/* OAuth buttons */}
           <div className=" mb-6">
-            <Button onClick={handleGoogleSignIn} className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
+            <Button
+              onClick={handleGoogleSignIn}
+              className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80"
+            >
               <FcGoogle /> Google
             </Button>
           </div>
@@ -288,4 +277,5 @@ export default function SigninPage() {
       </div>
     </div>
   );
-}
+};
+export default SigninPage;

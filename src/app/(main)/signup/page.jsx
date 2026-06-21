@@ -19,7 +19,7 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 
-export default function SignupPage() {
+const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
 
@@ -27,11 +27,15 @@ export default function SignupPage() {
     e.preventDefault();
     setSigningUp(true);
     const formData = Object.fromEntries(new FormData(e.currentTarget));
+    console.log(formData);
+    
 
     const { data, error } = await authClient.signUp.email({
       ...formData,
       plan: "Free",
     });
+    console.log(data);
+    
     if (data) {
       alert("success");
       setSigningUp(false);
@@ -46,35 +50,22 @@ export default function SignupPage() {
   const handleGoogleSignUp = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
+      role: "user",
+      plan: "free",
     });
   };
 
   return (
-    <div
-      className="min-h-screen w-full pt-30 pb-20 px-4 md:px-10 flex items-center justify-center "
-      style={{ background: "#0a0a0a" }}
-    >
-      {/* Ambient glow blobs */}
+    <div className="min-h-screen w-full pt-30 pb-20 px-4 md:px-10 flex items-center justify-center bg-[#0a0a0a]">
       <div
         className="pointer-events-none fixed inset-0 overflow-hidden"
         aria-hidden
       >
-        <div
-          className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-20 blur-3xl"
-          style={{ background: "#a3e635" }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-10 blur-3xl"
-          style={{ background: "#65a30d" }}
-        />
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-20 blur-3xl bg-[#a3e635]" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-10 blur-3xl bg-[#65a30d]" />
       </div>
 
-      {/* Card */}
-      <div
-        className="relative z-10 w-full max-w-5xl rounded-2xl overflow-hidden  md:flex  shadow-2xl"
-        style={{ background: "#111111", border: "1px solid #1f1f1f" }}
-      >
-        {/* ── LEFT PANEL ── */}
+      <div className="relative z-10 w-full max-w-5xl rounded-2xl overflow-hidden  md:flex  shadow-2xl bg-[#111111]">
         <div
           className=" flex flex-col justify-between md:w-5/12 p-10 relative overflow-hidden"
           style={{
@@ -123,10 +114,7 @@ export default function SignupPage() {
 
           {/* Hero copy */}
           <div className="relative z-10 space-y-4">
-            <h2
-              className=" text-2xl md:text-4xl font-extrabold leading-tight mt-5 md:mt-0"
-              style={{ color: "#f0fdf4" }}
-            >
+            <h2 className=" text-2xl md:text-4xl font-extrabold leading-tight mt-5 md:mt-0 text-[#f0fdf4]">
               Your Prompts.
               <br />
               <span className="text-[#95FF00]">Your Power.</span>
@@ -154,7 +142,10 @@ export default function SignupPage() {
 
           {/* OAuth buttons */}
           <div className=" mb-6">
-            <Button onClick={handleGoogleSignUp} className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80">
+            <Button
+              onClick={handleGoogleSignUp}
+              className="w-full rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] transition-all duration-150 hover:opacity-80"
+            >
               <FcGoogle /> Google
             </Button>
           </div>
@@ -304,4 +295,5 @@ export default function SignupPage() {
       </div>
     </div>
   );
-}
+};
+export default SignupPage;

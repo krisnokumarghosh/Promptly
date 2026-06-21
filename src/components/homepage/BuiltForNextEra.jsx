@@ -1,8 +1,8 @@
 "use client";
 
+import { typeAnimation } from "@/lib/animations";
 import { jetbrainsMono } from "@/lib/fonts";
 import { Fingerprint, PlugWire, Rocket } from "@gravity-ui/icons";
-import { TypeAnimation } from "react-type-animation";
 
 const FEATURES = [
   {
@@ -28,7 +28,7 @@ const TERMINAL_LINES = [
   { label: "Temperature calibration:", value: "0.7" },
 ];
 
-export default function BuiltForNextEra() {
+const BuiltForNextEra = () => {
   return (
     <section className="bg-[#080d08] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -83,17 +83,7 @@ export default function BuiltForNextEra() {
 
               <p className="text-[#AAFF00] font-bold mt-4">
                 <span className="mr-2">{">"}</span>
-                <TypeAnimation
-                  sequence={[
-                    "READY FOR DEPLOYMENT",
-                    2000, // full text দেখাবে 2s
-                    "", // erase
-                    800, // pause
-                  ]}
-                  speed={55}
-                  repeat={Infinity}
-                  cursor={true}
-                />
+                {typeAnimation("READY FOR DEPLOYMENT")}
               </p>
             </div>
           </div>
@@ -101,4 +91,5 @@ export default function BuiltForNextEra() {
       </div>
     </section>
   );
-}
+};
+export default BuiltForNextEra;

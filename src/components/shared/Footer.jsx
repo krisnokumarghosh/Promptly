@@ -1,4 +1,3 @@
-// components/Footer.jsx
 import Link from "next/link";
 import { jetbrainsMono } from "@/lib/fonts";
 import { LogoGithub, LogoLinkedin } from "@gravity-ui/icons";
@@ -40,7 +39,7 @@ const SOCIALS = [
   { icon: <LogoLinkedin />, href: "https://linkedin.com" },
 ];
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className="bg-[#080d08] border-t border-white/6 px-6 pt-16 pb-8 ">
       <div className="max-w-225 mx-auto">
@@ -111,4 +110,5 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+export default Footer;

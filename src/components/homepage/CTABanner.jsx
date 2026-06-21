@@ -1,11 +1,10 @@
 import { Button } from "@heroui/react";
 
-export default function CTABanner() {
+const CTABanner = () => {
   return (
     <section className="bg-[#080d08] py-16 px-6">
       <div className="max-w-225 mx-auto">
         <div className="relative rounded-[20px] overflow-hidden px-8 py-14 text-center bg-[radial-gradient(ellipse_at_top_left,#CCFF33,#AAFF00_40%,#66CC00)]">
-
           {/* Subtle radial glow overlay */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_80%_20%,rgba(255,255,255,0.15),transparent_70%)] pointer-events-none" />
 
@@ -29,9 +28,9 @@ export default function CTABanner() {
               Request Enterprise Access
             </Button>
           </div>
-
         </div>
       </div>
     </section>
   );
-}
+};
+export default CTABanner;

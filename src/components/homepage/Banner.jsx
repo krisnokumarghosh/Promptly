@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { LocationArrow, Magnifier } from "@gravity-ui/icons";
 import { Button, Chip, Input } from "@heroui/react";
 import { jetbrainsMono } from "@/lib/fonts";
 import { motion } from "framer-motion";
+import { useScramble } from "@/lib/animations";
 
 const TRENDING = [
   "ChatGPT",
@@ -14,46 +14,6 @@ const TRENDING = [
   "Deepseek",
   "Claude-Fable-5",
 ];
-
-const CHARS = "ABCDEFGHIJKLMNWXYyz0123456789@#$%&";
-
-function useScramble(text, duration = 1800) {
-  const [display, setDisplay] = useState(text);
-  const frame = useRef(null);
-
-  useEffect(() => {
-    let start = null;
-
-    const animate = (timestamp) => {
-      if (!start) start = timestamp;
-      const elapsed = timestamp - start;
-      const progress = Math.min(elapsed / duration, 1); // 0 থেকে 1
-      const revealCount = Math.floor(progress * text.length);
-
-      setDisplay(
-        text
-          .split("")
-          .map((char, i) => {
-            if (char === " ") return " ";
-            if (i < revealCount) return char;
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join(""),
-      );
-
-      if (progress < 1) {
-        frame.current = requestAnimationFrame(animate);
-      } else {
-        setDisplay(text);
-      }
-    };
-
-    frame.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame.current);
-  }, [text, duration]);
-
-  return display;
-}
 
 const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 24 },
