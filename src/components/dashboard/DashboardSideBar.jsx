@@ -10,7 +10,7 @@ import { ImTerminal } from "react-icons/im";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/dashboard/creator", icon: House },
-  { label: "Add Prompt", href: "/dashboard/creator/add", icon: Plus },
+  { label: "Add Prompt", href: "/dashboard/creator/add-prompt", icon: Plus },
   { label: "My Prompts", href: "/dashboard/creator/new", icon: FileText },
 ];
 
@@ -97,9 +97,9 @@ export default function Sidebar({ user }) {
       </aside>
 
       {/* Mobile drawer */}
-      <div className="md:hidden my-4 ml-4">
+      <div className="md:hidden flex justify-between items-center h-10 border-b border-white/5 px-4 py-6">
         <Drawer>
-          <Button className="bg-transparent">
+          <Button className="bg-transparent ">
             <Bars className="text-[#94FD00]" />
           </Button>
 
@@ -132,6 +132,12 @@ export default function Sidebar({ user }) {
             </Drawer.Content>
           </Drawer.Backdrop>
         </Drawer>
+        <div>
+          <h3 className="text-white font-semibold">Dashboard</h3>
+        </div>
+        <div>
+
+        </div>
       </div>
     </>
   );
