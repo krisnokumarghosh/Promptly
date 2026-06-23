@@ -1,27 +1,32 @@
 // components/dashboard/SummaryCards.jsx
+import { getPromptsById } from "@/lib/api/prompts";
 import { jetbrainsMono } from "@/lib/fonts";
 import { FileText, Copy, Bookmark } from "@gravity-ui/icons";
 
-export default function CreatorSummaryCards() {
+export default async function CreatorSummaryCards({ user }) {
+  const copyCount = user?.copyCount;
+  const bookmarksCount = user?.bookmarksCount;
+  const getPrompts = await getPromptsById(user?.id);
+  const totalPrompt = getPrompts.length;
   const CARDS = [
     {
       icon: FileText,
       label: "Total Prompts",
-      value: "12",
+      value: totalPrompt,
       badge: "Active",
       badgeColor: "text-[#AAFF00] bg-[#AAFF00]/10",
     },
     {
       icon: Copy,
       label: "Total Copies",
-      value: "4.5k",
+      value: copyCount,
       badge: "+12% this month",
       badgeColor: "text-[#AAFF00] bg-[#AAFF00]/10",
     },
     {
       icon: Bookmark,
       label: "Total Bookmarks",
-      value: "850",
+      value: bookmarksCount,
       badge: "High Engagement",
       badgeColor: "text-[#AAFF00] bg-[#AAFF00]/10",
     },

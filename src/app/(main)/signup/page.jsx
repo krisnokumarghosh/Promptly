@@ -28,14 +28,15 @@ const SignupPage = () => {
     setSigningUp(true);
     const formData = Object.fromEntries(new FormData(e.currentTarget));
     console.log(formData);
-    
 
     const { data, error } = await authClient.signUp.email({
       ...formData,
       plan: "Free",
+      copyCount: 0,
+      bookmarksCount: 0,
     });
     console.log(data);
-    
+
     if (data) {
       alert("success");
       setSigningUp(false);
@@ -52,6 +53,8 @@ const SignupPage = () => {
       provider: "google",
       role: "user",
       plan: "free",
+      copyCount: 0,
+      bookmarksCount: 0,
     });
   };
 

@@ -15,7 +15,7 @@ const Creatorpage = async () => {
           <span className="text-[#94FD00] ml-2">{user?.name}</span>{" "}
         </h2>
       </div>
-      <CreatorSummaryCards/>
+      <CreatorSummaryCards user={user}/>
     </div>
   );
 };

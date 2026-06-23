@@ -28,6 +28,12 @@ export const auth = betterAuth({
       plan: {
         defaultValue: "Free",
       },
+      copyCount: {
+        defaultValue: 0,
+      },
+      bookmarksCount: {
+        defaultValue: 0,
+      },
     },
   },
 });
