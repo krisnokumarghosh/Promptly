@@ -116,6 +116,7 @@ const AddPromptForm = () => {
       visibility: visibility,
       copyCount: 0,
       status: "pending",
+      rating: 0,
     };
 
     const addPrompt = await createPrompt(payload);

@@ -10,7 +10,7 @@ const Creatorpage = async () => {
         <p className="text-[#94FD00] text-xs md:text-sm font-semibold mb-3">
           CREATOR PORTAL
         </p>
-        <h2 className="text-[26px] md:text-[48px] font-semibold">
+        <h2 className="text-[26px] md:text-[40px] font-bold">
           Welcome back,
           <span className="text-[#94FD00] ml-2">{user?.name}</span>{" "}
         </h2>

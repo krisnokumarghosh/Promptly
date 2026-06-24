@@ -11,7 +11,7 @@ import { ImTerminal } from "react-icons/im";
 const NAV_ITEMS = [
   { label: "Home", href: "/dashboard/creator", icon: House },
   { label: "Add Prompt", href: "/dashboard/creator/add-prompt", icon: Plus },
-  { label: "My Prompts", href: "/dashboard/creator/new", icon: FileText },
+  { label: "My Prompts", href: "/dashboard/creator/my-prompts", icon: FileText },
 ];
 
 function NavLinks() {
