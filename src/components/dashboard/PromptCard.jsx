@@ -7,6 +7,7 @@ import { jetbrainsMono } from "@/lib/fonts";
 import { Eye, Pencil, TrashBin, Globe } from "@gravity-ui/icons";
 import { Button, Chip } from "@heroui/react";
 import PromptEditModal from "./PromptEditModal";
+import DeletePromptAlert from "./DeletePromptAlert";
 
 const STATUS_STYLES = {
   pending: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
@@ -85,13 +86,7 @@ export function PromptCard({ prompt }) {
           <span className="hidden md:flex">View</span>
         </Button>
        <PromptEditModal prompt={prompt}/>
-        <Button
-          size="sm"
-          className="  text-red-400/60 hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 transition-all"
-        >
-          <TrashBin width={13} height={13} />
-          <span className="hidden md:flex">Delete</span>
-        </Button>
+        <DeletePromptAlert prompt={prompt}/>
       </div>
     </div>
   );
