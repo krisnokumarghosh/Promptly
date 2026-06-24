@@ -5,27 +5,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { jetbrainsMono } from "@/lib/fonts";
 import { Eye, Pencil, TrashBin, Globe } from "@gravity-ui/icons";
-import { Chip } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
+import PromptEditModal from "./PromptEditModal";
 
 const STATUS_STYLES = {
-  pending:  "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
+  pending: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
   approved: "bg-[#AAFF00]/10 text-[#AAFF00] border border-[#AAFF00]/20",
   rejected: "bg-red-500/10 text-red-400 border border-red-500/20",
 };
 
 const DIFFICULTY_STYLES = {
-  Beginner:     "bg-[#AAFF00]/10 text-[#AAFF00]",
+  Beginner: "bg-[#AAFF00]/10 text-[#AAFF00]",
   Intermediate: "bg-blue-500/10 text-blue-400",
-  Pro:          "bg-purple-500/10 text-purple-400",
+  Pro: "bg-purple-500/10 text-purple-400",
 };
 
-export function PromptCard({ prompt, onDelete }) {
+export function PromptCard({ prompt }) {
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-[#0d120d] border border-white/[0.07] hover:border-white/12 rounded-[14px] p-4 transition-colors">
-
       {/* Top row on mobile: thumbnail + info */}
       <div className="flex items-start gap-3 flex-1 min-w-0">
-
         {/* Thumbnail */}
         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] overflow-hidden flex-none border border-white/8">
           <Image
@@ -44,11 +44,15 @@ export function PromptCard({ prompt, onDelete }) {
             <p className="text-[13px] sm:text-[14px] font-semibold text-white">
               {prompt.title}
             </p>
-            <Chip className={`${jetbrainsMono.className} text-[9px] font-bold px-2 py-0.5  ${DIFFICULTY_STYLES[prompt.difficulty] ?? "text-white/40"}`}>
+            <Chip
+              className={`${jetbrainsMono.className} text-[9px] font-bold px-2 py-0.5  ${DIFFICULTY_STYLES[prompt.difficulty] ?? "text-white/40"}`}
+            >
               {prompt.difficulty}
             </Chip>
-           
-            <Chip className={`${jetbrainsMono.className} text-[9px] font-bold px-2 py-0.5  capitalize border ${STATUS_STYLES[prompt.status] ?? "text-white/40"}`}>
+
+            <Chip
+              className={`${jetbrainsMono.className} text-[9px] font-bold px-2 py-0.5  capitalize border ${STATUS_STYLES[prompt.status] ?? "text-white/40"}`}
+            >
               {prompt.status}
             </Chip>
           </div>
@@ -72,30 +76,23 @@ export function PromptCard({ prompt, onDelete }) {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-2 flex-none sm:ml-auto">
-        <Link
-          href={`/dashboard/prompts/${prompt._id}`}
-          className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-white/50 hover:text-white bg-white/4 hover:bg-white/8 border border-white/8 transition-all"
+      <div className="flex justify-around md:justify-center items-center gap-2 ">
+        <Button
+          size="sm"
+          className=" text-white/50 hover:text-white bg-white/4 hover:bg-white/8 border border-white/8 transition-all"
         >
           <Eye width={13} height={13} />
-          <span className="sm:hidden">View</span>
-        </Link>
-        <Link
-          href={`/dashboard/prompts/${prompt._id}/edit`}
-          className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-[#AAFF00]/60 hover:text-[#AAFF00] bg-[#AAFF00]/5 hover:bg-[#AAFF00]/10 border border-[#AAFF00]/20 transition-all"
-        >
-          <Pencil width={13} height={13} />
-          <span className="sm:hidden">Edit</span>
-        </Link>
-        <button
-          onClick={() => onDelete?.(prompt._id)}
-          className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-red-400/60 hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 transition-all"
+          <span className="hidden md:flex">View</span>
+        </Button>
+       <PromptEditModal prompt={prompt}/>
+        <Button
+          size="sm"
+          className="  text-red-400/60 hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 transition-all"
         >
           <TrashBin width={13} height={13} />
-          <span className="sm:hidden">Delete</span>
-        </button>
+          <span className="hidden md:flex">Delete</span>
+        </Button>
       </div>
-
     </div>
   );
 }

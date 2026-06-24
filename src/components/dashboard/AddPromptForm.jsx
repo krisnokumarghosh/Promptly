@@ -18,6 +18,7 @@ import Image from "next/image";
 import { getUserSession } from "@/lib/core/session";
 import { createPrompt } from "@/lib/actions/prompts";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 
 const CATEGORIES = [
   "Coding",
@@ -124,6 +125,7 @@ const AddPromptForm = () => {
     if (addPrompt.insertedId) {
       setSubmitting(false);
       alert("prompt created");
+      redirect("/dashboard/creator/my-prompts")
     } else if (!addPrompt) {
       alert(addPrompt.error);
     }

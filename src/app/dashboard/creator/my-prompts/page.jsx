@@ -30,11 +30,7 @@ const CreatorMyPromptPage = async () => {
         ) : (
           <div className="flex flex-col gap-2.5">
             {prompts.map((prompt) => (
-              <PromptCard
-                key={prompt._id}
-                prompt={prompt}
-                
-              />
+              <PromptCard key={prompt._id} prompt={prompt} />
             ))}
           </div>
         )}
