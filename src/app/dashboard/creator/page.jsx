@@ -1,9 +1,13 @@
 import CreatorSummaryCards from "@/components/dashboard/creator/CreatorSummaryCards";
+import PromptCopyChart from "@/components/dashboard/creator/PromptCopyChart";
+import PromptGrowthChart from "@/components/dashboard/PromptGrowthChart";
+import { getPromptsById } from "@/lib/api/prompts";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
 const Creatorpage = async () => {
   const user = await getUserSession();
+  const prompts = await getPromptsById(user?.id)
   return (
     <div className="text-white">
       <div>
@@ -15,7 +19,9 @@ const Creatorpage = async () => {
           <span className="text-[#94FD00] ml-2">{user?.name}</span>{" "}
         </h2>
       </div>
-      <CreatorSummaryCards user={user}/>
+      <CreatorSummaryCards user={user} prompts={prompts}/>
+      <PromptGrowthChart prompts={prompts}/>
+      <PromptCopyChart prompts={prompts}/>
     </div>
   );
 };

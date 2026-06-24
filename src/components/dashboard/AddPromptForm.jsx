@@ -116,6 +116,7 @@ const AddPromptForm = () => {
       thumbnail: thumbnailUrl,
       visibility: visibility,
       copyCount: 0,
+      bookmarkCount: 0,
       status: "pending",
       rating: 0,
     };
