@@ -4,22 +4,83 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { jetbrainsMono } from "@/lib/fonts";
-import { FileText, Plus, Bars, House } from "@gravity-ui/icons";
-import { Drawer, Button } from "@heroui/react";
+import {
+  FileText,
+  Plus,
+  Bars,
+  House,
+  Person,
+  FloppyDisk,
+  Comments,
+  ChartColumn,
+  Persons,
+  Bookmark,
+  FileDollar,
+  TriangleExclamation,
+} from "@gravity-ui/icons";
+import { Drawer, Button, Chip } from "@heroui/react";
 import { ImTerminal } from "react-icons/im";
 
-const NAV_ITEMS = [
+const creatorNavItems = [
   { label: "Home", href: "/dashboard/creator", icon: House },
   { label: "Add Prompt", href: "/dashboard/creator/add-prompt", icon: Plus },
-  { label: "My Prompts", href: "/dashboard/creator/my-prompts", icon: FileText },
+  {
+    label: "My Prompts",
+    href: "/dashboard/creator/my-prompts",
+    icon: FileText,
+  },
 ];
 
-function NavLinks() {
+const userNavItems = [
+  { label: "Profile", href: "/dashboard/user", icon: Person },
+  {
+    label: "Saved Prompts",
+    href: "/dashboard/user/saved-prompts",
+    icon: Bookmark,
+  },
+  { label: "My Prompts", href: "/dashboard/user/my-prompts", icon: FileText },
+  { label: "Add Prompt", href: "/dashboard/user/add-prompt", icon: Plus },
+  { label: "My Reviews", href: "/dashboard/user/my-reviews", icon: Comments },
+];
+
+const adminNavItems = [
+  { label: "Analytics", href: "/dashboard/admin", icon: ChartColumn },
+  {
+    label: "All Users",
+    href: "/dashboard/admin/all-users",
+    icon: Persons,
+  },
+  {
+    label: "All Prompts",
+    href: "/dashboard/admin/all-prompts",
+    icon: FloppyDisk,
+  },
+  {
+    label: "All Payments",
+    href: "/dashboard/admin/all-payments",
+    icon: FileDollar,
+  },
+  {
+    label: "Reported Prompts",
+    href: "/dashboard/admin/reported-prompts",
+    icon: TriangleExclamation,
+  },
+];
+
+const navItemsMap = {
+  creator: creatorNavItems,
+  user: userNavItems,
+  admin: adminNavItems,
+};
+
+function NavLinks({ user }) {
   const pathname = usePathname();
+
+  const navItems = navItemsMap[user?.role || "user"];
 
   return (
     <nav className="flex flex-col gap-3">
-      {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
+      {navItems.map(({ label, href, icon: Icon }) => {
         const isActive = pathname === href;
         return (
           <Link
@@ -55,9 +116,13 @@ function UserCard({ user }) {
         </span>
       </div>
       <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between">
+
         <p className="text-[12.5px] font-semibold text-white/80 truncate">
           {user?.name ?? "User"}
         </p>
+        <Chip className="text-[#AAFF00] bg-[#AAFF00]/10">{user?.role}</Chip>
+        </div>
         <p
           className={`${jetbrainsMono.className} text-[10px] text-white/28 uppercase tracking-[0.06em]`}
         >
@@ -88,7 +153,7 @@ export default function Sidebar({ user }) {
         </Link>
 
         <div className="flex-1 overflow-y-auto p-3">
-          <NavLinks />
+          <NavLinks user={user} />
         </div>
 
         <div className="p-3 border-t border-white/5">
@@ -122,7 +187,7 @@ export default function Sidebar({ user }) {
                 </Drawer.Header>
 
                 <Drawer.Body className="flex-1 overflow-y-auto p-3">
-                  <NavLinks />
+                  <NavLinks user={user} />
                 </Drawer.Body>
 
                 <div className="p-3 border-t border-white/5">
@@ -135,9 +200,7 @@ export default function Sidebar({ user }) {
         <div>
           <h3 className="text-white font-semibold">Dashboard</h3>
         </div>
-        <div>
-
-        </div>
+        <div></div>
       </div>
     </>
   );
