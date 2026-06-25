@@ -7,6 +7,7 @@ import { jetbrainsMono } from "@/lib/fonts";
 import { TrashBin, ChevronDown } from "@gravity-ui/icons";
 import { changeUserRole } from "@/lib/actions/users";
 import { useRouter } from "next/navigation";
+import UserDeleteAlert from "./UserDeleteAlert";
 
 const ROLE_STYLES = {
   user: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
@@ -85,11 +86,7 @@ function RoleDropdown({ userId, currentRole }) {
 const thClass = `${jetbrainsMono.className} text-left text-[10px] font-bold text-white/25 tracking-[0.12em] uppercase px-4 py-3 bg-white/[0.02] border-b border-white/[0.06]`;
 const tdClass = "px-4 py-3";
 
-export default function AdminUsersTable({
-  users = [],
-
-  onDelete,
-}) {
+export default function AdminUsersTable({ users = [] }) {
   return (
     <div className="w-full overflow-x-auto overflow-y-auto rounded-[14px] border border-white/[0.07] bg-[#0d120d]">
       <table className="w-full min-w-175 border-collapse">
@@ -188,13 +185,7 @@ export default function AdminUsersTable({
 
                 {/* Actions */}
                 <td className={tdClass}>
-                  <button
-                    onClick={() => onDelete?.(user._id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-red-400/60 hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 transition-all"
-                  >
-                    <TrashBin width={13} height={13} />
-                    Delete
-                  </button>
+                 <UserDeleteAlert user={user}/>
                 </td>
               </tr>
             ))
