@@ -2,12 +2,11 @@
 
 import { deletePrompt } from "@/lib/actions/prompts";
 import { errorToast, successToast } from "@/lib/toasts";
-import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const DeletePromptAlert = ({ prompt }) => {
+const AdminPromptDeleteAlert = ({ prompt }) => {
   const router = useRouter();
   const handleDelete = async () => {
     try {
@@ -25,12 +24,8 @@ const DeletePromptAlert = ({ prompt }) => {
   return (
     <div>
       <AlertDialog>
-        <Button
-          size="sm"
-          className="  text-red-400/60 hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 transition-all"
-        >
-          <TrashBin width={13} height={13} />
-          <span className="hidden md:flex">Delete</span>
+        <Button className=" rounded-2xl bg-red-500/6 hover:bg-red-500/12 border border-red-500/20 text-red-400/60 hover:text-red-400 transition-all">
+          Delete
         </Button>
         <AlertDialog.Backdrop variant="blur">
           <AlertDialog.Container>
@@ -65,4 +60,4 @@ const DeletePromptAlert = ({ prompt }) => {
   );
 };
 
-export default DeletePromptAlert;
+export default AdminPromptDeleteAlert;

@@ -19,6 +19,7 @@ import { getUserSession } from "@/lib/core/session";
 import { createPrompt } from "@/lib/actions/prompts";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import { errorToast, successToast } from "@/lib/toasts";
 
 const CATEGORIES = [
   "Coding",
@@ -94,8 +95,8 @@ const AddPromptForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (tags.length === 0) return alert("Add at least one tag");
-    if (!thumbnail) return alert("Please upload a thumbnail");
+    if (tags.length === 0) return errorToast("Add at least one tag");
+    if (!thumbnail) return errorToast("Please upload a thumbnail");
     const user = await getUserSession();
     // console.log(user);
 
@@ -125,10 +126,10 @@ const AddPromptForm = () => {
 
     if (addPrompt.insertedId) {
       setSubmitting(false);
-      alert("prompt created");
+      successToast("Prompt Created");
       redirect(`/dashboard/${user?.role}/my-prompts`)
     } else if (!addPrompt) {
-      alert(addPrompt.error);
+      errorToast(addPrompt.error);
     }
   };
 

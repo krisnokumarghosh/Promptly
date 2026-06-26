@@ -7,3 +7,7 @@ export const getPromptsById = async (userId) => {
 export const getAllPrompts = async () => {
   return serverFetch("/api/prompts");
 };
+
+export const getAllPromptsByQuery = async (query) => {
+  return serverFetch(`/api/prompts?${query}`);
+};

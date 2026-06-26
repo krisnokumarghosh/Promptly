@@ -8,6 +8,7 @@ import { TrashBin, ChevronDown } from "@gravity-ui/icons";
 import { changeUserRole } from "@/lib/actions/users";
 import { useRouter } from "next/navigation";
 import UserDeleteAlert from "./UserDeleteAlert";
+import { errorToast, successToast } from "@/lib/toasts";
 
 const ROLE_STYLES = {
   user: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
@@ -28,15 +29,15 @@ function RoleDropdown({ userId, currentRole }) {
       };
       const changeRole = await changeUserRole(userId, data);
       if (changeRole.modifiedCount > 0) {
-        alert("success");
+        successToast("Role Changed");
       } else {
-        alert("nothing changed");
+        errorToast("nothing changed");
       }
 
       setOpen(false);
       router.refresh();
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 

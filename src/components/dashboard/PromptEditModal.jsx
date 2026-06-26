@@ -2,6 +2,7 @@
 
 import { updatePrompt } from "@/lib/actions/prompts";
 import { jetbrainsMono } from "@/lib/fonts";
+import { errorToast, successToast } from "@/lib/toasts";
 import { Pencil } from "@gravity-ui/icons";
 import {
   Button,
@@ -29,13 +30,13 @@ const PromptEditModal = ({ prompt }) => {
       const promptId = prompt._id;
       const update = await updatePrompt(promptId, formData);
       if (update.modifiedCount > 0) {
-        alert("success");
+        successToast("Prompt Updated");
       } else {
-        alert("nothing changed");
+        errorToast("nothing changed");
       }
       router.refresh();
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     } finally {
       setUpdating(false);
     }

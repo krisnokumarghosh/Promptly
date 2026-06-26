@@ -1,5 +1,6 @@
 import { manrope } from "@/lib/fonts";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Create Next App",
@@ -9,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${manrope.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-black">{children}</body>
+      <body className="min-h-full flex flex-col bg-black">
+        <main> {children}</main>
+
+        <Toaster position="top-right" />
+      </body>
     </html>
   );
 }

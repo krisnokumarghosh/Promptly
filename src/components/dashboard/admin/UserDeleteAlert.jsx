@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteUser } from "@/lib/actions/users";
+import { errorToast, successToast } from "@/lib/toasts";
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -12,11 +13,11 @@ const UserDeleteAlert = ({ user }) => {
     try {
       const delUser = await deleteUser(user._id);
       if (delUser.deleteCount > 0) {
-        alert("success");
+        successToast("User Deleted");
       }
       router.refresh();
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 

@@ -18,6 +18,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import { errorToast, successToast } from "@/lib/toasts";
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,11 +37,11 @@ const SignupPage = () => {
     console.log(data);
 
     if (data) {
-      alert("success");
+      successToast("Signup Successfull");
       setSigningUp(false);
       redirect("/signin");
     } else if (error) {
-      alert(error.message);
+      errorToast(error.message);
       setSigningUp(false);
     }
     console.log(data);

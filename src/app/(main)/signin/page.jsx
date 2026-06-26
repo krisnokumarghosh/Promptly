@@ -17,6 +17,7 @@ import { jetbrainsMono } from "@/lib/fonts";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { typeAnimation } from "@/lib/animations";
+import { errorToast, successToast } from "@/lib/toasts";
 
 const TERMINAL_LINES = [
   { label: "Memory Layer:", value: "ACTIVE" },
@@ -38,11 +39,11 @@ const SigninPage = () => {
     });
 
     if (data) {
-      alert("login success");
+      successToast("Login Successfull");
       setSigningIn(false);
       redirect("/");
     } else if (error) {
-      alert(error.message);
+      errorToast(error.message);
       setSigningIn(false);
     }
   };
