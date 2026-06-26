@@ -11,3 +11,11 @@ export const getAllPrompts = async () => {
 export const getAllPromptsByQuery = async (query) => {
   return serverFetch(`/api/prompts?${query}`);
 };
+
+export const getActivePrompts = async (query) => {
+  return serverFetch(`/api/prompts?${query}&status=approved`);
+};
+
+export const getSinglePrompt = async (promptId) => {
+  return serverFetch(`/api/prompt/${promptId}`)
+}

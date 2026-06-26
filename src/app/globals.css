@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
-/* Webkit browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -20,8 +19,42 @@
   background: #88cc00;
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: #aaff00 transparent;
+}
+
+[data-slot="previous"],
+[data-slot="next"] {
+  color: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+  background: #0d120d !important;
+}
+
+[data-slot="previous"]:hover,
+[data-slot="next"]:hover {
+  color: #aaff00 !important;
+  border-color: rgba(170, 255, 0, 0.3) !important;
+}
+
+[data-slot="pagination-item"] button {
+  color: rgba(255, 255, 255, 0.4) !important;
+  background: #0d120d !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[data-slot="pagination-item"] button[data-active="true"],
+[data-slot="pagination-item"] button[aria-current="page"] {
+  background: rgba(170, 255, 0, 0.1) !important;
+  color: #aaff00 !important;
+  border-color: rgba(170, 255, 0, 0.3) !important;
+}
+
+[data-slot="pagination-item"] button:hover {
+  color: #aaff00 !important;
+  border-color: rgba(170, 255, 0, 0.2) !important;
+}
+
+[data-slot="ellipsis"] {
+  color: rgba(255, 255, 255, 0.2) !important;
 }
