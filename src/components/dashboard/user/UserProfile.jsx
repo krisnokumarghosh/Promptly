@@ -8,7 +8,7 @@ export default function UserProfile({ user }) {
 
   return (
     <div className="w-full max-w-7xl">
-      <h1 className="text-white text-xl md:text-[30px] font-semibold mb-1">User Account Profile</h1>
+      <h1 className="text-white text-[26px] md:text-[40px] font-semibold mb-1">User Profile</h1>
       <p className="text-white/30 text-[13px] md:text-[16px] mb-5">
         Manage your plan, credentials, and published prompt details.
       </p>
@@ -65,7 +65,7 @@ export default function UserProfile({ user }) {
         <div className="bg-[#0d120d] border border-white/[0.07] rounded-3xl p-4">
           <CircleCheck size={20} className="text-[#AAFF00] mb-2" />
           <p className={`${jetbrainsMono.className} text-[10px] font-bold tracking-[0.12em] uppercase text-white/25 mb-1.5`}>
-            Account Status
+            Saved Prompts
           </p>
           <p className="text-[#AAFF00] text-[16px] font-semibold">
             {user?.emailVerified ? "Verified Member" : "Unverified"}

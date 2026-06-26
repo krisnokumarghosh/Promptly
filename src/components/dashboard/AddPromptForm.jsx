@@ -126,7 +126,7 @@ const AddPromptForm = () => {
     if (addPrompt.insertedId) {
       setSubmitting(false);
       alert("prompt created");
-      redirect("/dashboard/creator/my-prompts")
+      redirect(`/dashboard/${user?.role}/my-prompts`)
     } else if (!addPrompt) {
       alert(addPrompt.error);
     }
