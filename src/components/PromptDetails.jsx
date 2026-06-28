@@ -20,6 +20,7 @@ import { errorToast, successToast } from "@/lib/toasts";
 import { increasePromptCopyCount } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
 import PromptReportModal from "./PromptReportModal";
+import { addBookmark, deleteBookmark } from "@/lib/actions/bookmarks";
 
 const DIFFICULTY_STYLES = {
   Beginner: "bg-[#AAFF00]/10 text-[#AAFF00] border border-[#AAFF00]/20",
@@ -84,17 +85,18 @@ function StarRating({ value = 0, onChange }) {
 }
 
 // ── Main Component ───────────────────────────────────────────────
-export default function PromptDetails({ prompt, user }) {
-  const [bookmarked, setBookmarked] = useState(false);
+export default function PromptDetails({ prompt, user, bookMarks }) {
   const [copied, setCopied] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
+  console.log(prompt);
 
   const isPremium = prompt.visibility === "Private";
   const hasAccess = user?.plan === "Pro" || user?.role !== "user";
   const isLocked = isPremium && !hasAccess;
+  const isBookmarked = bookMarks.find((b) => b.promptId === prompt._id);
 
   // Copy prompt
   const handleCopy = async () => {
@@ -112,9 +114,26 @@ export default function PromptDetails({ prompt, user }) {
   };
 
   // Bookmark toggle
-  const handleBookmark = () => {
-    setBookmarked(!bookmarked);
-    successToast(bookmarked ? "Bookmark removed" : "Prompt bookmarked!");
+  const handleBookmark = async () => {
+    try {
+      if (!isBookmarked) {
+        const bookmarkData = {
+          promptId: prompt._id,
+          userId: user?.id,
+        };
+        const bookmark = await addBookmark(bookmarkData);
+        successToast("Bookmarked");
+      } else if (isBookmarked) {
+        const data = {
+          promptId: prompt._id,
+        };
+        const delBookmark = await deleteBookmark(isBookmarked._id, data);
+        successToast("Bookmark Removed");
+      }
+      router.refresh();
+    } catch (error) {
+      errorToast(error.message);
+    }
   };
 
   // Submit review
@@ -164,18 +183,18 @@ export default function PromptDetails({ prompt, user }) {
             onClick={handleBookmark}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-[12px] font-bold  transition-all bg-[#AAFF00] hover:bg-[#BFFF33] text-[#0a0a0a]`}
           >
-            {bookmarked ? (
+            {isBookmarked ? (
               <Check width={14} height={14} />
             ) : (
               <Bookmark width={14} height={14} />
             )}
 
-            {bookmarked ? "Bookmarked" : "Bookmark"}
+            {isBookmarked ? "Bookmarked" : "Bookmark"}
           </Button>
         </div>
 
         {/* Report */}
-       <PromptReportModal prompt={prompt} user={user}/>
+        {!isLocked && <PromptReportModal prompt={prompt} user={user} />}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -330,11 +349,6 @@ export default function PromptDetails({ prompt, user }) {
               <div>
                 <p className="text-[13px] font-semibold text-white/80">
                   {prompt.userName}
-                </p>
-                <p
-                  className={`${jetbrainsMono.className} text-[10px] text-white/30 uppercase tracking-[0.06em]`}
-                >
-                  Creator
                 </p>
               </div>
             </div>

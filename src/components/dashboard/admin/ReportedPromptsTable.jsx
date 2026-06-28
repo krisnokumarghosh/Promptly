@@ -8,6 +8,7 @@ import { TrashBin, Bell, Check } from "@gravity-ui/icons";
 import { successToast, errorToast } from "@/lib/toasts";
 import { dismissOrRemoveReport } from "@/lib/actions/reports";
 import { useRouter } from "next/navigation";
+import { updatePrompt } from "@/lib/actions/prompts";
 
 const CATEGORY_STYLES = {
   Spam: "bg-red-500/10 text-red-400 border border-red-500/20",
@@ -37,10 +38,19 @@ export default function ReportedPromptsTable({ reports = [] }) {
     }
   };
 
-  const handleWarnCreator = async (userId, promptTitle) => {
+  const handleWarnCreator = async (promptId, reportCategory) => {
     try {
-      // your warn API call
-      successToast(`Warning sent to creator`);
+      console.log(promptId, reportCategory);
+      const data = {
+        warning: reportCategory,
+      };
+      const warn = await updatePrompt(promptId, data);
+      if (warn.modifiedCount > 0) {
+        successToast(`Warning sent to creator`);
+      } else {
+        errorToast("Nothing Changed");
+      }
+      router.refresh();
     } catch {
       errorToast("Failed to send warning");
     }
@@ -213,16 +223,23 @@ export default function ReportedPromptsTable({ reports = [] }) {
                     {/* Warn Creator */}
                     <button
                       onClick={() =>
-                        handleWarnCreator(
-                          report.prompt?.userId,
-                          report.prompt?.title,
-                        )
+                        handleWarnCreator(report.promptId, report.category)
                       }
                       title="Warn Creator"
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-medium text-yellow-400/60 hover:text-yellow-400 bg-yellow-500/5 hover:bg-yellow-500/10 border border-yellow-500/20 transition-all whitespace-nowrap"
+                      className=" px-2.5 py-1.5 rounded-full text-[11px] font-medium text-yellow-400/60 hover:text-yellow-400 bg-yellow-500/5 hover:bg-yellow-500/10 border border-yellow-500/20 transition-all whitespace-nowrap"
                     >
-                      <Bell width={12} height={12} />
-                      Warn
+                      {" "}
+                      {report.prompt.warning ? (
+                        <span className="flex items-center gap-1.5">
+                          <Check width={12} height={12} />
+                          Warned
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1.5">
+                          <Bell width={12} height={12} />
+                          Warn
+                        </span>
+                      )}
                     </button>
 
                     {/* Dismiss */}

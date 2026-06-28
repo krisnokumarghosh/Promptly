@@ -22,7 +22,6 @@ const DIFFICULTY_STYLES = {
 };
 
 export function PromptCard({ prompt }) {
-
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-[#0d120d] border border-white/[0.07] hover:border-white/12 rounded-[14px] p-4 transition-colors">
       {/* Top row on mobile: thumbnail + info */}
@@ -72,6 +71,9 @@ export function PromptCard({ prompt }) {
                 day: "numeric",
               })}
             </span>
+            {prompt.warning && (
+              <span className="text-amber-300">Warning: {prompt.warning}</span>
+            )}
           </div>
         </div>
       </div>
@@ -85,8 +87,8 @@ export function PromptCard({ prompt }) {
           <Eye width={13} height={13} />
           <span className="hidden md:flex">View</span>
         </Button>
-       <PromptEditModal prompt={prompt}/>
-        <DeletePromptAlert prompt={prompt}/>
+        <PromptEditModal prompt={prompt} />
+        <DeletePromptAlert prompt={prompt} />
       </div>
     </div>
   );
