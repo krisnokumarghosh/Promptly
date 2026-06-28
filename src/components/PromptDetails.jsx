@@ -21,6 +21,7 @@ import { increasePromptCopyCount } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
 import PromptReportModal from "./PromptReportModal";
 import { addBookmark, deleteBookmark } from "@/lib/actions/bookmarks";
+import { submitReview } from "@/lib/actions/reviews";
 
 const DIFFICULTY_STYLES = {
   Beginner: "bg-[#AAFF00]/10 text-[#AAFF00] border border-[#AAFF00]/20",
@@ -85,13 +86,17 @@ function StarRating({ value = 0, onChange }) {
 }
 
 // ── Main Component ───────────────────────────────────────────────
-export default function PromptDetails({ prompt, user, bookMarks }) {
+export default function PromptDetails({
+  prompt,
+  user,
+  bookMarks,
+  promptReviews,
+}) {
   const [copied, setCopied] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
-  console.log(prompt);
 
   const isPremium = prompt.visibility === "Private";
   const hasAccess = user?.plan === "Pro" || user?.role !== "user";
@@ -142,7 +147,16 @@ export default function PromptDetails({ prompt, user, bookMarks }) {
     if (!review.trim()) return errorToast("Please write a review");
     setSubmitting(true);
     try {
-      // your API call here
+      const data = {
+        userId: user?.id,
+        userName: user?.name,
+        userImage: user?.image,
+        promptId: prompt._id,
+        rating: userRating,
+        userReview: review,
+      };
+      const submit = await submitReview(data);
+
       successToast("Review submitted!");
       setReview("");
       setUserRating(0);
@@ -308,22 +322,109 @@ export default function PromptDetails({ prompt, user, bookMarks }) {
                 Subscribe to Premium to leave a review.
               </p>
             ) : (
-              <div className="flex flex-col gap-3">
-                <StarRating value={userRating} onChange={setUserRating} />
-                <textarea
-                  value={review}
-                  onChange={(e) => setReview(e.target.value)}
-                  placeholder="Write your review..."
-                  rows={3}
-                  className={`${jetbrainsMono.className} w-full bg-white/3 border border-white/8 focus:border-[#AAFF00]/30 rounded-[10px] px-4 py-3 text-[12px] text-white/70 placeholder:text-white/20 outline-none resize-none transition-colors`}
-                />
-                <button
-                  onClick={handleReviewSubmit}
-                  disabled={submitting}
-                  className="self-start bg-[#AAFF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold text-[12px] px-5 py-2 rounded-full transition-colors disabled:opacity-50"
-                >
-                  {submitting ? "Submitting..." : "Submit Review"}
-                </button>
+              <div className="flex flex-col gap-6">
+                {/* Existing Reviews */}
+                {promptReviews?.length > 0 && (
+                  <div className="flex flex-col gap-4">
+                    {promptReviews.map((r) => (
+                      <div
+                        key={r._id}
+                        className="flex gap-3 pb-4 border-b border-white/5 last:border-0 last:pb-0"
+                      >
+                        {/* Avatar */}
+                        <div className="w-8 h-8 rounded-full overflow-hidden flex-none border border-white/8">
+                          {r.userImage ? (
+                            <Image
+                              src={r.userImage}
+                              alt={r.userName}
+                              width={32}
+                              height={32}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div
+                              className={`${jetbrainsMono.className} w-full h-full bg-[#AAFF00]/10 flex items-center justify-center text-[#AAFF00] text-[11px] font-bold`}
+                            >
+                              {r.userName?.[0]?.toUpperCase()}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2 mb-1">
+                            <p className="text-[13px] font-semibold text-white/80">
+                              {r.userName}
+                            </p>
+                            {/* Stars */}
+                            <div className="flex items-center gap-0.5 flex-none">
+                              {[1, 2, 3, 4, 5].map((s) => (
+                                <Star
+                                  key={s}
+                                  width={12}
+                                  height={12}
+                                  className={
+                                    s <= r.rating
+                                      ? "text-[#AAFF00]"
+                                      : "text-white/15"
+                                  }
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <p className="text-[12px] text-white/45 leading-[1.7]">
+                            {r.userReview}
+                          </p>
+                          <p
+                            className={`${jetbrainsMono.className} text-[10px] text-white/20 mt-1.5`}
+                          >
+                            {new Date(r.createdAt).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* No reviews yet */}
+                {promptReviews?.length === 0 && (
+                  <p
+                    className={`${jetbrainsMono.className} text-[11px] text-white/20 italic`}
+                  >
+                    No reviews yet. Be the first to review!
+                  </p>
+                )}
+
+                {/* Divider */}
+                <div className="h-px bg-white/5" />
+
+                {/* Submit Review */}
+                <div className="flex flex-col gap-3">
+                  <p
+                    className={`${jetbrainsMono.className} text-[10px] text-white/25 uppercase tracking-widest`}
+                  >
+                    Leave a Review
+                  </p>
+                  <StarRating value={userRating} onChange={setUserRating} />
+                  <textarea
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                    placeholder="Write your review..."
+                    rows={3}
+                    className={`${jetbrainsMono.className} w-full bg-white/3 border border-white/8 focus:border-[#AAFF00]/30 rounded-[10px] px-4 py-3 text-[12px] text-white/70 placeholder:text-white/20 outline-none resize-none transition-colors`}
+                  />
+                  <button
+                    onClick={handleReviewSubmit}
+                    disabled={submitting}
+                    className="self-start bg-[#AAFF00] hover:bg-[#BFFF33] text-[#0a0a0a] font-bold text-[12px] px-5 py-2 rounded-full transition-colors disabled:opacity-50"
+                  >
+                    {submitting ? "Submitting..." : "Submit Review"}
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -366,7 +467,6 @@ export default function PromptDetails({ prompt, user, bookMarks }) {
               { label: "AI Tool", value: prompt.aiTool },
               { label: "Category", value: prompt.category },
               { label: "Copies", value: prompt.copyCount },
-              { label: "Rating", value: `${prompt.rating ?? 0} / 5` },
               { label: "Bookmarks", value: prompt.bookmarkCount ?? 0 },
               {
                 label: "Published",
