@@ -2,13 +2,13 @@ import Image from "next/image";
 import { jetbrainsMono } from "@/lib/fonts";
 import { CircleCheck, Diamond, Envelope, FileText } from "@gravity-ui/icons";
 
-export default function UserProfile({ user, prompts }) {
+export default function UserProfile({ user, prompts, savedPrompts }) {
   const isPro = user?.plan === "Pro";
 
   return (
     <div className="w-full max-w-7xl">
       <h1 className="text-white text-[22px] sm:text-[30px] md:text-[40px] font-semibold mb-1">
-        User Profile
+        User <span className="text-[#95FF00]">Profile</span> 
       </h1>
       <p className="text-white/30 text-[12px] sm:text-[13px] md:text-[16px] mb-5">
         Manage your plan, credentials, and published prompt details.
@@ -80,8 +80,8 @@ export default function UserProfile({ user, prompts }) {
           >
             Saved Prompts
           </p>
-          <p className="text-[#AAFF00] text-[13px] sm:text-[16px] font-semibold">
-            {user?.emailVerified ? "Verified Member" : "Unverified"}
+         <p className="text-white text-[22px] sm:text-[28px] font-semibold">
+            {savedPrompts.length || 0}
           </p>
         </div>
       </div>
