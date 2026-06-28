@@ -1,6 +1,7 @@
 import { PromptCard } from "@/components/dashboard/PromptCard";
 import { getPromptsById } from "@/lib/api/prompts";
 import { getUserSession } from "@/lib/core/session";
+import { jetbrainsMono } from "@/lib/fonts";
 import { FilePlus, Plus } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
 import Link from "next/link";

@@ -1,6 +1,8 @@
+import { requireRole } from "@/lib/core/session";
 import React from "react";
 
-const CreatorLayout = ({ children }) => {
+const CreatorLayout = async ({ children }) => {
+  await requireRole("creator");
   return children;
 };
 

@@ -13,3 +13,7 @@ export const updatePrompt = async (promptId, data) => {
 export const deletePrompt = async (promptId) => {
   return serverMutation(`/api/prompt/${promptId}`, null, "DELETE");
 };
+
+export const increasePromptCopyCount = async (promptId) => {
+  return serverMutation(`/api/prompts/${promptId}`, null, "PATCH");
+};

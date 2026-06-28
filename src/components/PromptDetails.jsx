@@ -16,6 +16,10 @@ import {
   Clock,
 } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
+import { errorToast, successToast } from "@/lib/toasts";
+import { increasePromptCopyCount } from "@/lib/actions/prompts";
+import { useRouter } from "next/navigation";
+import PromptReportModal from "./PromptReportModal";
 
 const DIFFICULTY_STYLES = {
   Beginner: "bg-[#AAFF00]/10 text-[#AAFF00] border border-[#AAFF00]/20",
@@ -86,18 +90,25 @@ export default function PromptDetails({ prompt, user }) {
   const [userRating, setUserRating] = useState(0);
   const [review, setReview] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
   const isPremium = prompt.visibility === "Private";
   const hasAccess = user?.plan === "Pro" || user?.role !== "user";
   const isLocked = isPremium && !hasAccess;
 
   // Copy prompt
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (isLocked) return;
-    navigator.clipboard.writeText(prompt.content);
-    setCopied(true);
-    successToast("Prompt copied to clipboard!");
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      navigator.clipboard.writeText(prompt.content);
+      setCopied(true);
+      successToast("Prompt copied to clipboard!");
+      const countIncrease = await increasePromptCopyCount(prompt._id);
+      setTimeout(() => setCopied(false), 2000);
+      router.refresh();
+    } catch (error) {
+      errorToast(error.message);
+    }
   };
 
   // Bookmark toggle
@@ -121,11 +132,6 @@ export default function PromptDetails({ prompt, user }) {
     } finally {
       setSubmitting(false);
     }
-  };
-
-  // Report
-  const handleReport = () => {
-    successToast("Prompt reported. We'll review it shortly.");
   };
 
   return (
@@ -169,13 +175,7 @@ export default function PromptDetails({ prompt, user }) {
         </div>
 
         {/* Report */}
-        <Button
-          onClick={handleReport}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-full text-[11px] font-medium text-white/50 hover:text-red-400 border border-white/8 hover:border-red-500/20 bg-white/4 transition-all"
-        >
-          <Flag width={13} height={13} />
-          Report
-        </Button>
+       <PromptReportModal prompt={prompt} user={user}/>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
