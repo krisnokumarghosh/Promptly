@@ -8,7 +8,7 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
   return (
     <div className="w-full max-w-7xl">
       <h1 className="text-white text-[22px] sm:text-[30px] md:text-[40px] font-semibold mb-1">
-        User <span className="text-[#95FF00]">Profile</span> 
+        User <span className="text-[#95FF00]">Profile</span>
       </h1>
       <p className="text-white/30 text-[12px] sm:text-[13px] md:text-[16px] mb-5">
         Manage your plan, credentials, and published prompt details.
@@ -80,7 +80,7 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
           >
             Saved Prompts
           </p>
-         <p className="text-white text-[22px] sm:text-[28px] font-semibold">
+          <p className="text-white text-[22px] sm:text-[28px] font-semibold">
             {savedPrompts.length || 0}
           </p>
         </div>
@@ -101,9 +101,13 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
               community reviews for a single one-time contribution of $5.
             </p>
           </div>
-          <button className="bg-[#AAFF00] text-[#0a0f0a] font-bold text-[13px] px-5 py-2.5 rounded-full hover:bg-[#99ee00] transition-colors w-full sm:w-auto sm:whitespace-nowrap">
-            Upgrade Now ($5)
-          </button>
+          <form action="/api/checkout_sessions" method="POST">
+            <section>
+              <button className="bg-[#AAFF00] text-[#0a0f0a] font-bold text-[13px] px-5 py-2.5 rounded-full hover:bg-[#99ee00] transition-colors w-full sm:w-auto sm:whitespace-nowrap">
+                Upgrade Now ($5)
+              </button>
+            </section>
+          </form>
         </div>
       )}
     </div>

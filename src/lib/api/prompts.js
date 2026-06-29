@@ -1,7 +1,7 @@
-import { serverFetch } from "../core/server";
+import { secureServerFetch, serverFetch } from "../core/server";
 
 export const getPromptsById = async (userId) => {
-  return serverFetch(`/api/prompts/${userId}`);
+  return secureServerFetch(`/api/prompts/${userId}`);
 };
 
 export const getAllPrompts = async () => {
@@ -17,5 +17,5 @@ export const getActivePrompts = async (query) => {
 };
 
 export const getSinglePrompt = async (promptId) => {
-  return serverFetch(`/api/prompt/${promptId}`)
-}
+  return secureServerFetch(`/api/prompt/${promptId}`);
+};

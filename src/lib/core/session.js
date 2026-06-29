@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { headers } from "next/headers";
 import { auth } from "../auth";
@@ -12,6 +12,15 @@ export const getUserSession = async () => {
   return user;
 };
 
+export const getUserToken = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  console.log(session);
+  
+
+  return session?.session?.token || null;
+};
 
 export const requireRole = async (role) => {
   const user = await getUserSession();
