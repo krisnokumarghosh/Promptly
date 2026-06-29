@@ -8,6 +8,7 @@ import { Button, Pagination as HeroPagination } from "@heroui/react";
 import AdminPromptDeleteAlert from "./AdminPromptDeleteAlert";
 import { updatePrompt } from "@/lib/actions/prompts";
 import { errorToast, successToast } from "@/lib/toasts";
+import { addFeature } from "@/lib/actions/features";
 
 const STATUS_STYLES = {
   pending: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
@@ -55,6 +56,19 @@ export default function AdminPromptsTable({
       } else {
         errorToast("nothing changed");
       }
+      router.refresh();
+    } catch (error) {
+      errorToast(error.message);
+    }
+  };
+
+  const hanldeFeature = async (prompt) => {
+    try {
+      const data = {
+        ...prompt,
+      };
+      const add = await addFeature(data);
+      successToast("Prompt Featured");
       router.refresh();
     } catch (error) {
       errorToast(error.message);
@@ -197,6 +211,18 @@ export default function AdminPromptsTable({
                       {prompt.status === "pending" ||
                       prompt.status === "rejected" ? (
                         <div className="flex items-center gap-2">
+                          {prompt.feature ? (
+                            <Button className="bg-purple-500/10 text-purple-400">
+                              Featured
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => hanldeFeature(prompt)}
+                              className="bg-blue-500/10 text-blue-400 font-semibold"
+                            >
+                              Feature
+                            </Button>
+                          )}
                           <Button
                             onClick={() => handleApprove(prompt)}
                             className="bg-green-500/6 hover:bg-green-500/12 border border-green-500/20 text-green-400/60 hover:text-green-400 transition-all"
@@ -207,6 +233,18 @@ export default function AdminPromptsTable({
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
+                          {prompt.feature ? (
+                            <Button className="bg-purple-500/10 text-purple-400">
+                              Featured
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => hanldeFeature(prompt)}
+                              className="bg-blue-500/10 text-blue-400"
+                            >
+                              Feature
+                            </Button>
+                          )}
                           <Button
                             onClick={() => handleReject(prompt)}
                             className="bg-yellow-500/6 hover:bg-yellow-500/12 border border-yellow-500/20 text-yellow-400/60 hover:text-yellow-400 transition-all"
