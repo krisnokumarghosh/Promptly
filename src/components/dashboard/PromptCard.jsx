@@ -1,10 +1,8 @@
-// components/dashboard/PromptCard.jsx
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { jetbrainsMono } from "@/lib/fonts";
-import { Eye, Pencil, TrashBin, Globe } from "@gravity-ui/icons";
+import { Eye, Globe } from "@gravity-ui/icons";
 import { Button, Chip } from "@heroui/react";
 import PromptEditModal from "./PromptEditModal";
 import DeletePromptAlert from "./DeletePromptAlert";
@@ -24,9 +22,7 @@ const DIFFICULTY_STYLES = {
 export function PromptCard({ prompt }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-[#0d120d] border border-white/[0.07] hover:border-white/12 rounded-[14px] p-4 transition-colors">
-      {/* Top row on mobile: thumbnail + info */}
       <div className="flex items-start gap-3 flex-1 min-w-0">
-        {/* Thumbnail */}
         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] overflow-hidden flex-none border border-white/8">
           <Image
             src={prompt.thumbnail}
@@ -37,9 +33,7 @@ export function PromptCard({ prompt }) {
           />
         </div>
 
-        {/* Info */}
         <div className="flex-1 min-w-0">
-          {/* Title + badges */}
           <div className="flex items-center gap-1.5 flex-wrap mb-1.5">
             <p className="text-[13px] sm:text-[14px] font-semibold text-white">
               {prompt.title}
@@ -57,7 +51,6 @@ export function PromptCard({ prompt }) {
             </Chip>
           </div>
 
-          {/* Meta */}
           <div className="flex items-center gap-2 flex-wrap text-[11px] text-white/30">
             <span className="flex items-center gap-1">
               <Globe width={11} height={11} />
@@ -78,7 +71,6 @@ export function PromptCard({ prompt }) {
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex justify-around md:justify-center items-center gap-2 ">
         <Button
           size="sm"

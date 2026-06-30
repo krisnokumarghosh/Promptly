@@ -13,16 +13,13 @@ const UnauthorizedPage = async () => {
   };
   return (
     <div className="min-h-screen bg-[#080d08] flex items-center justify-center px-4">
-      {/* Radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_40%,rgba(100,200,50,0.07),transparent_70%)] pointer-events-none" />
 
       <div className="relative z-10 text-center max-w-md">
-        {/* Icon */}
         <div className="w-20 h-20 rounded-[20px] bg-[#AAFF00]/6 border border-[#AAFF00]/15 flex items-center justify-center mx-auto mb-6">
           <Lock width={30} height={30} className="text-[#AAFF00]/40" />
         </div>
 
-        {/* 403 badge */}
         <span
           className={`${jetbrainsMono.className} inline-block text-[10px] font-bold tracking-[0.2em] text-[#AAFF00]/40 uppercase mb-3`}
         >
@@ -37,7 +34,6 @@ const UnauthorizedPage = async () => {
           administrator or return to a safe place.
         </p>
 
-        {/* Buttons */}
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             href={dashboardRoles[user?.role || "/"]}

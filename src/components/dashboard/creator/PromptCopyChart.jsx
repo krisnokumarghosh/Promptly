@@ -11,7 +11,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Custom tooltip
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
@@ -30,7 +29,6 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-// Custom bar label (shows on highest bar only)
 function CustomBarLabel({ x, y, width, value, maxValue }) {
   if (value !== maxValue || value === 0) return null;
   return (
@@ -67,7 +65,6 @@ export default function PromptCopyChart({ prompts = [] }) {
 
   const maxCopies = Math.max(...data.map((d) => d.copies), 1);
 
-  // Stats
   const totalCopies = data.reduce((s, d) => s + d.copies, 0);
   const avgCopies = data.length ? (totalCopies / data.length).toFixed(1) : 0;
   const topPrompt = data.reduce(
@@ -77,10 +74,8 @@ export default function PromptCopyChart({ prompts = [] }) {
 
   return (
     <div className="bg-[#0d120d] border border-white/[0.07] rounded-4xl p-5 mt-8 md:mt-20">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
-          {/* icon */}
           <svg
             width="16"
             height="16"
@@ -105,7 +100,6 @@ export default function PromptCopyChart({ prompts = [] }) {
         </span>
       </div>
 
-      {/* Chart */}
       {data.length === 0 ? (
         <div className="h-50 flex items-center justify-center text-white/25 text-[13px]">
           No prompt data yet.
@@ -170,7 +164,6 @@ export default function PromptCopyChart({ prompts = [] }) {
         </ResponsiveContainer>
       )}
 
-      {/* Bottom stats */}
       <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
         <div>
           <p

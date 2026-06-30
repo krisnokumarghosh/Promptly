@@ -14,7 +14,6 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
         Manage your plan, credentials, and published prompt details.
       </p>
 
-      {/* Info Card */}
       <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-4 sm:p-5 mb-3">
         <div className="flex items-center gap-3 sm:gap-3.5 flex-wrap sm:flex-nowrap">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#AAFF00]/30 flex-none">
@@ -59,7 +58,6 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
         </div>
       </div>
 
-      {/* Stats Row */}
       <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
         <div className="bg-[#0d120d] border border-white/[0.07] rounded-2xl sm:rounded-3xl p-3 sm:p-4">
           <FileText size={18} className="text-[#AAFF00] mb-2" />
@@ -86,7 +84,6 @@ export default function UserProfile({ user, prompts, savedPrompts }) {
         </div>
       </div>
 
-      {/* Upgrade Banner */}
       {!isPro && (
         <div className="bg-[#0d1a0d] border border-[#AAFF00]/15 rounded-[14px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex-1 min-w-0">

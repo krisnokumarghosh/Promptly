@@ -45,11 +45,9 @@ export default async function Success({ searchParams }) {
     return (
       <section id="success">
         <div className="min-h-screen bg-[#080d08] flex items-center justify-center px-4">
-          {/* Glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_40%,rgba(100,200,50,0.09),transparent_70%)] pointer-events-none" />
 
           <div className="relative z-10 text-center max-w-md w-full">
-            {/* Animated check icon */}
             <div className="w-20 h-20 rounded-[20px] bg-[#AAFF00]/8 border border-[#AAFF00]/20 flex items-center justify-center mx-auto mb-6">
               <svg
                 width="36"
@@ -65,7 +63,6 @@ export default async function Success({ searchParams }) {
               </svg>
             </div>
 
-            {/* Badge */}
             <div
               className={`${jetbrainsMono.className} inline-flex items-center gap-2 bg-[#AAFF00]/8 border border-[#AAFF00]/20 text-[#AAFF00] text-[10px] font-bold tracking-[0.14em] uppercase px-4 py-1.5 rounded-full mb-5`}
             >
@@ -83,7 +80,6 @@ export default async function Success({ searchParams }) {
               unlock every prompt, every model, every feature.
             </p>
 
-            {/* Terminal receipt */}
             <div
               className={`${jetbrainsMono.className} bg-[#0d120d] border border-white/[0.07] rounded-[14px] overflow-hidden mb-8 text-left`}
             >
@@ -119,12 +115,10 @@ export default async function Success({ searchParams }) {
               </div>
             </div>
 
-            {/* Info */}
             <p className="text-[12px] text-white/25 mb-8 leading-[1.7]">
               A confirmation email has been sent to{" "}
             </p>
 
-            {/* CTAs */}
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <Link
                 href="/all-prompts"

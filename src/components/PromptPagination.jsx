@@ -1,4 +1,3 @@
-// components/prompts/PromptPagination.jsx
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";

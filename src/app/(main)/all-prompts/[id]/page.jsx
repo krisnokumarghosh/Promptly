@@ -11,7 +11,6 @@ const PromptDetailsPage = async ({ params }) => {
   const user = await getUserSession();
   const getBookmarks = await getBookmarksByUseId(user?.id);
   const getPromptReviews = await getReviewsByPromptId(id);
-  console.log(getPromptReviews);
   
 
   return (

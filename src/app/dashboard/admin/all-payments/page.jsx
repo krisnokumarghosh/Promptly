@@ -1,4 +1,3 @@
-// app/dashboard/admin/payments/page.jsx
 import AllPaymentsTable from "@/components/dashboard/admin/AllPaymentsTable";
 import { getAllPaymets } from "@/lib/api/payments";
 

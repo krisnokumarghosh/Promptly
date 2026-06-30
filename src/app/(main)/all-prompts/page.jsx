@@ -1,9 +1,7 @@
-// app/prompts/page.jsx
 import PromptCard from "@/components/PromptCard";
 import PromptFilters from "@/components/PromptFilters";
 import PromptPagination from "@/components/PromptPagination";
 import { getActivePrompts } from "@/lib/api/prompts";
-
 
 const PER_PAGE = 10;
 
@@ -32,20 +30,18 @@ const AllPromptsPage = async ({ searchParams }) => {
   return (
     <div className=" py-30 px-6 text-white">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-[40px] font-semibold text-white mb-1">
-            Explore <span className="text-[#95FF00]">Prompts</span> 
+            Explore <span className="text-[#95FF00]">Prompts</span>
           </h1>
           <p className="text-white/30 text-[13px] md:text-[16px]">
-           <span className="text-[#95FF00]">{total}</span>  prompt{total !== 1 ? "s" : ""} found
+            <span className="text-[#95FF00]">{total}</span> prompt
+            {total !== 1 ? "s" : ""} found
           </p>
         </div>
 
-        {/* Filters (Client Component) */}
         <PromptFilters />
 
-        {/* Grid */}
         {prompts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-white/25">
             <p className="text-lg font-medium">No prompts found</p>
@@ -59,7 +55,6 @@ const AllPromptsPage = async ({ searchParams }) => {
           </div>
         )}
 
-        {/* Pagination */}
         {totalPages > 1 && <PromptPagination totalPages={totalPages} />}
       </div>
     </div>

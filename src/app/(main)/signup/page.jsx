@@ -28,13 +28,11 @@ const SignupPage = () => {
     e.preventDefault();
     setSigningUp(true);
     const formData = Object.fromEntries(new FormData(e.currentTarget));
-    console.log(formData);
 
     const { data, error } = await authClient.signUp.email({
       ...formData,
       plan: "Free",
     });
-    console.log(data);
 
     if (data) {
       successToast("Signup Successfull");
@@ -44,7 +42,6 @@ const SignupPage = () => {
       errorToast(error.message);
       setSigningUp(false);
     }
-    console.log(data);
   };
 
   const handleGoogleSignUp = async () => {
@@ -73,7 +70,6 @@ const SignupPage = () => {
               "linear-gradient(145deg, #1a2a0a 0%, #0d1a06 40%, #0a0a0a 100%)",
           }}
         >
-          {/* Crosshatch grid */}
           <svg
             className="absolute inset-0 w-full h-full opacity-10"
             xmlns="http://www.w3.org/2000/svg"
@@ -96,13 +92,11 @@ const SignupPage = () => {
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
 
-          {/* Lime glow orb */}
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full opacity-25 blur-3xl"
             style={{ background: "#a3e635" }}
           />
 
-          {/* Logo */}
           <div className="relative z-10 flex items-center gap-2">
             <span className="text-[#95FF00] font-extrabold text-[18px] leading-none">
               <ImTerminal />
@@ -112,7 +106,6 @@ const SignupPage = () => {
             </span>
           </div>
 
-          {/* Hero copy */}
           <div className="relative z-10 space-y-4">
             <h2 className=" text-2xl md:text-4xl font-extrabold leading-tight mt-5 md:mt-0 text-[#f0fdf4]">
               Your Prompts.
@@ -128,7 +121,6 @@ const SignupPage = () => {
           </div>
         </div>
 
-        {/* ── RIGHT PANEL ── */}
         <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
           {/* Header */}
           <div className="mb-8">
@@ -140,7 +132,6 @@ const SignupPage = () => {
             </p>
           </div>
 
-          {/* OAuth buttons */}
           <div className=" mb-6">
             <Button
               onClick={handleGoogleSignUp}
@@ -150,7 +141,6 @@ const SignupPage = () => {
             </Button>
           </div>
 
-          {/* Divider */}
           <div className="flex items-center gap-3 mb-6">
             <div className="flex-1 h-px" style={{ background: "#1f1f1f" }} />
             <span className="text-xs" style={{ color: "#4b5563" }}>
@@ -159,9 +149,7 @@ const SignupPage = () => {
             <div className="flex-1 h-px" style={{ background: "#1f1f1f" }} />
           </div>
 
-          {/* Form */}
           <Form className="flex flex-col gap-4" onSubmit={handleSignUp}>
-            {/* Role radio */}
             <div className="flex flex-col gap-4 my-3">
               <RadioGroup
                 defaultValue="user"
@@ -228,7 +216,6 @@ const SignupPage = () => {
               <FieldError className="text-xs mt-1 text-red-400" />
             </TextField>
 
-            {/* Password */}
             <TextField
               isRequired
               minLength={8}
@@ -272,9 +259,6 @@ const SignupPage = () => {
               <FieldError className="text-xs mt-1 text-red-400" />
             </TextField>
 
-            {/* Confirm Password */}
-
-            {/* Submit */}
             <Button
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-sm mt-1 transition-all duration-150 hover:opacity-90 active:scale-95 bg-[#95FF00] text-black"
@@ -282,8 +266,6 @@ const SignupPage = () => {
               {signingUp ? "Signing Up..." : " Sign Up →"}
             </Button>
           </Form>
-
-          {/* Footer */}
 
           <p className="text-xs text-center mt-3" style={{ color: "#4b5563" }}>
             Already have an account?{" "}

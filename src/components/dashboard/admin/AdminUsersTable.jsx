@@ -1,10 +1,9 @@
-// components/dashboard/admin/AdminUsersTable.jsx
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 import { jetbrainsMono } from "@/lib/fonts";
-import { TrashBin, ChevronDown } from "@gravity-ui/icons";
+import {  ChevronDown } from "@gravity-ui/icons";
 import { changeUserRole } from "@/lib/actions/users";
 import { useRouter } from "next/navigation";
 import UserDeleteAlert from "./UserDeleteAlert";
@@ -53,9 +52,7 @@ function RoleDropdown({ userId, currentRole }) {
 
       {open && (
         <>
-          {/* Backdrop */}
           <div onClick={() => setOpen(false)} />
-          {/* Dropdown */}
           <div className="absolute left-0 top-full mt-1.5 z-20 bg-[#0d120d] border border-white/10 rounded-[10px] overflow-hidden min-w-27.5 shadow-xl">
             {ROLES.map((role) => (
               <button
@@ -91,7 +88,6 @@ export default function AdminUsersTable({ users = [] }) {
   return (
     <div className="w-full overflow-x-auto overflow-y-auto rounded-[14px] border border-white/[0.07] bg-[#0d120d]">
       <table className="w-full min-w-175 border-collapse">
-        {/* Head */}
         <thead>
           <tr>
             <th className={thClass}>User</th>
@@ -103,7 +99,6 @@ export default function AdminUsersTable({ users = [] }) {
           </tr>
         </thead>
 
-        {/* Body */}
         <tbody>
           {users.length === 0 ? (
             <tr>
@@ -120,7 +115,6 @@ export default function AdminUsersTable({ users = [] }) {
                 key={user._id}
                 className="border-b border-white/4 hover:bg-white/2 transition-colors"
               >
-                {/* User */}
                 <td className={tdClass}>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-2xl overflow-hidden flex-none border border-white/8">
@@ -146,19 +140,16 @@ export default function AdminUsersTable({ users = [] }) {
                   </div>
                 </td>
 
-                {/* Email */}
                 <td className={tdClass}>
                   <span className="text-[12px] text-white/40">
                     {user.email}
                   </span>
                 </td>
 
-                {/* Role */}
                 <td className={tdClass}>
                   <RoleDropdown userId={user._id} currentRole={user.role} />
                 </td>
 
-                {/* Plan */}
                 <td className={tdClass}>
                   <span
                     className={`${jetbrainsMono.className} text-[10px] font-bold px-2 py-1 rounded-full ${
@@ -171,7 +162,6 @@ export default function AdminUsersTable({ users = [] }) {
                   </span>
                 </td>
 
-                {/* Joined */}
                 <td className={tdClass}>
                   <span
                     className={`${jetbrainsMono.className} text-[11px] text-white/30`}
@@ -184,7 +174,6 @@ export default function AdminUsersTable({ users = [] }) {
                   </span>
                 </td>
 
-                {/* Actions */}
                 <td className={tdClass}>
                  <UserDeleteAlert user={user}/>
                 </td>

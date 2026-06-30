@@ -14,10 +14,8 @@ const CTABanner = () => {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-[20px] overflow-hidden px-8 py-14 text-center bg-[radial-gradient(ellipse_at_top_left,#CCFF33,#AAFF00_40%,#66CC00)]"
         >
-          {/* Subtle radial glow overlay */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_80%_20%,rgba(255,255,255,0.15),transparent_70%)] pointer-events-none" />
 
-          {/* Title */}
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +26,6 @@ const CTABanner = () => {
             Start Prompting Your Future Today.
           </motion.h2>
 
-          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

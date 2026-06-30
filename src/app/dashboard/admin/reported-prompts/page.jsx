@@ -12,9 +12,6 @@ const ReportedPromptsPage = async () => {
     }),
   );
 
-  console.log(reportsWithPrompts);
-  
-
   return (
     <div className="flex flex-col gap-6 text-white">
       <div>

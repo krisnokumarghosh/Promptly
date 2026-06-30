@@ -1,4 +1,3 @@
-// components/dashboard/UserReviewsList.jsx
 import Image from "next/image";
 import Link from "next/link";
 import { jetbrainsMono } from "@/lib/fonts";
@@ -51,7 +50,6 @@ export default function UserReviewsList({ reviews = [] }) {
           key={review._id}
           className="flex flex-col gap-3 bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5"
         >
-          {/* Top row */}
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full overflow-hidden flex-none border border-white/8">
@@ -85,12 +83,10 @@ export default function UserReviewsList({ reviews = [] }) {
             <StarDisplay rating={review.rating} />
           </div>
 
-          {/* Review text */}
           <p className="text-[13px] text-white/50 leading-[1.75]">
             {review.userReview}
           </p>
 
-          {/* Prompt link */}
           <Link
             href={`/all-prompts/${review.promptId}`}
             className={`${jetbrainsMono.className} self-start text-[10px] text-[#AAFF00]/50 hover:text-[#AAFF00] tracking-[0.08em] uppercase border border-[#AAFF00]/15 hover:border-[#AAFF00]/30 px-3 py-1 rounded-full transition-colors`}

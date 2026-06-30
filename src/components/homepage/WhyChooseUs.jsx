@@ -81,7 +81,6 @@ export default function WhyChooseUs() {
     <section className="bg-[#080d08e3] py-24 px-6" ref={ref}>
       <div className="max-w-225 mx-auto text-center">
 
-        {/* Badge */}
         <motion.div
           variants={headerVariant}
           initial="hidden"
@@ -92,7 +91,6 @@ export default function WhyChooseUs() {
           Why Choose Us
         </motion.div>
 
-        {/* Title */}
         <motion.h2
           variants={headerVariant}
           initial="hidden"
@@ -105,7 +103,6 @@ export default function WhyChooseUs() {
           Who Mean Business
         </motion.h2>
 
-        {/* Subtitle */}
         <motion.p
           variants={headerVariant}
           initial="hidden"
@@ -117,7 +114,6 @@ export default function WhyChooseUs() {
           powerful AI prompts on the planet.
         </motion.p>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {FEATURES.map(({ icon, stat, title, desc }, i) => (
             <motion.div
@@ -128,23 +124,18 @@ export default function WhyChooseUs() {
               animate={isInView ? "visible" : "hidden"}
               className="group relative bg-[#1A1A1A] border border-white/8 hover:border-[#AAFF00]/25 rounded-[14px] p-6 text-left overflow-hidden transition-colors duration-200"
             >
-              {/* Shimmer line */}
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-[#AAFF00]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
-              {/* Icon */}
               <div className="w-10 h-10 bg-[#AAFF00]/8 border border-[#AAFF00]/20 rounded-[10px] flex items-center justify-center mb-4">
                 <p className="text-[20px] text-[#AAFF00]">{icon}</p>
               </div>
 
-              {/* Stat */}
               <span className={`${jetbrainsMono.className} text-[22px] font-extrabold text-[#AAFF00] block mb-1`}>
                 {stat}
               </span>
 
-              {/* Title */}
               <p className="text-[14px] font-bold text-white mb-2">{title}</p>
 
-              {/* Desc */}
               <p className="text-[12.5px] text-white/45 leading-[1.7]">{desc}</p>
             </motion.div>
           ))}

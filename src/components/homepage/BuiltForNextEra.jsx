@@ -59,7 +59,6 @@ const BuiltForNextEra = () => {
     <section className="bg-[#080d08] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
-        {/* Left */}
         <div>
           <motion.h2
             initial="hidden"
@@ -97,7 +96,6 @@ const BuiltForNextEra = () => {
           </motion.div>
         </div>
 
-        {/* Right — Terminal */}
         <motion.div
           initial="hidden"
           whileInView="visible"

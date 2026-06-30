@@ -4,14 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { jetbrainsMono } from "@/lib/fonts";
-import {
-  Bookmark,
-  Copy,
-  Star,
-  Lock,
-  Check,
- 
-} from "@gravity-ui/icons";
+import { Bookmark, Copy, Star, Lock, Check } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
 import { errorToast, successToast } from "@/lib/toasts";
 import { increasePromptCopyCount } from "@/lib/actions/prompts";
@@ -19,9 +12,6 @@ import { useRouter } from "next/navigation";
 import PromptReportModal from "./PromptReportModal";
 import { addBookmark, deleteBookmark } from "@/lib/actions/bookmarks";
 import { submitReview } from "@/lib/actions/reviews";
-
-
-
 
 function PremiumLock() {
   return (
@@ -175,7 +165,6 @@ export default function PromptDetails({
 
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
-
           <Button
             onClick={handleBookmark}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-[12px] font-bold  transition-all bg-[#AAFF00] hover:bg-[#BFFF33] text-[#0a0a0a]`}
@@ -284,7 +273,6 @@ export default function PromptDetails({
             </ol>
           </div>
 
-          {/* Review Section */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-4`}
@@ -298,7 +286,6 @@ export default function PromptDetails({
               </p>
             ) : (
               <div className="flex flex-col gap-6">
-                {/* Existing Reviews */}
                 {promptReviews?.length > 0 && (
                   <div className="flex flex-col gap-4">
                     {promptReviews.map((r) => (
@@ -306,7 +293,6 @@ export default function PromptDetails({
                         key={r._id}
                         className="flex gap-3 pb-4 border-b border-white/5 last:border-0 last:pb-0"
                       >
-                        {/* Avatar */}
                         <div className="w-8 h-8 rounded-full overflow-hidden flex-none border border-white/8">
                           {r.userImage ? (
                             <Image
@@ -325,13 +311,11 @@ export default function PromptDetails({
                           )}
                         </div>
 
-                        {/* Content */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between gap-2 mb-1">
                             <p className="text-[13px] font-semibold text-white/80">
                               {r.userName}
                             </p>
-                            {/* Stars */}
                             <div className="flex items-center gap-0.5 flex-none">
                               {[1, 2, 3, 4, 5].map((s) => (
                                 <Star
@@ -365,7 +349,6 @@ export default function PromptDetails({
                   </div>
                 )}
 
-                {/* No reviews yet */}
                 {promptReviews?.length === 0 && (
                   <p
                     className={`${jetbrainsMono.className} text-[11px] text-white/20 italic`}
@@ -374,10 +357,8 @@ export default function PromptDetails({
                   </p>
                 )}
 
-                {/* Divider */}
                 <div className="h-px bg-white/5" />
 
-                {/* Submit Review */}
                 <div className="flex flex-col gap-3">
                   <p
                     className={`${jetbrainsMono.className} text-[10px] text-white/25 uppercase tracking-widest`}
@@ -405,9 +386,7 @@ export default function PromptDetails({
           </div>
         </div>
 
-        {/* ── Right / Sidebar ── */}
         <div className="flex flex-col gap-4">
-          {/* Creator */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-3`}
@@ -430,7 +409,6 @@ export default function PromptDetails({
             </div>
           </div>
 
-          {/* Meta info */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5 flex flex-col gap-3">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-1`}
@@ -465,7 +443,6 @@ export default function PromptDetails({
             ))}
           </div>
 
-          {/* Tags */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-3`}
@@ -484,7 +461,6 @@ export default function PromptDetails({
             </div>
           </div>
 
-          {/* Visibility */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-3`}

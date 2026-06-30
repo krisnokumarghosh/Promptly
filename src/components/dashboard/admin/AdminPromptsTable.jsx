@@ -1,4 +1,3 @@
-// components/dashboard/admin/AdminPromptsTable.jsx
 "use client";
 
 import Image from "next/image";
@@ -95,7 +94,6 @@ export default function AdminPromptsTable({
 
   return (
     <div className="flex flex-col gap-0 rounded-[14px] border border-white/[0.07] bg-[#0d120d] overflow-hidden">
-      {/* Table */}
       <div className="w-full overflow-x-auto">
         <table className="w-full min-w-200 border-collapse">
           <thead>
@@ -126,7 +124,6 @@ export default function AdminPromptsTable({
                   key={prompt._id}
                   className="border-b border-white/4 hover:bg-white/2 transition-colors"
                 >
-                  {/* Prompt */}
                   <td className={tdClass}>
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-2xl overflow-hidden flex-none border border-white/6">
@@ -149,14 +146,12 @@ export default function AdminPromptsTable({
                     </div>
                   </td>
 
-                  {/* Category */}
                   <td className={tdClass}>
                     <span className="text-[12px] text-white/45">
                       {prompt.category}
                     </span>
                   </td>
 
-                  {/* AI Tool */}
                   <td className={tdClass}>
                     <span
                       className={`${jetbrainsMono.className} text-[11px] text-white/50`}
@@ -165,7 +160,6 @@ export default function AdminPromptsTable({
                     </span>
                   </td>
 
-                  {/* Difficulty */}
                   <td className={tdClass}>
                     <span
                       className={`${jetbrainsMono.className} text-[10px] font-bold px-2 py-1 rounded-md ${DIFFICULTY_STYLES[prompt.difficulty] ?? "text-white/40"}`}
@@ -174,7 +168,6 @@ export default function AdminPromptsTable({
                     </span>
                   </td>
 
-                  {/* Status */}
                   <td className={tdClass}>
                     <span
                       className={`${jetbrainsMono.className} text-[10px] font-bold px-2.5 py-1 rounded-md border capitalize ${STATUS_STYLES[prompt.status] ?? "text-white/40"}`}
@@ -183,7 +176,6 @@ export default function AdminPromptsTable({
                     </span>
                   </td>
 
-                  {/* Copies */}
                   <td className={tdClass}>
                     <span
                       className={`${jetbrainsMono.className} text-[13px] font-bold text-white/55`}
@@ -192,7 +184,6 @@ export default function AdminPromptsTable({
                     </span>
                   </td>
 
-                  {/* Date */}
                   <td className={tdClass}>
                     <span
                       className={`${jetbrainsMono.className} text-[11px] text-white/30`}
@@ -205,7 +196,6 @@ export default function AdminPromptsTable({
                     </span>
                   </td>
 
-                  {/* Actions */}
                   <td className={tdClass}>
                     <div>
                       {prompt.status === "pending" ||
@@ -263,13 +253,12 @@ export default function AdminPromptsTable({
         </table>
       </div>
 
-      {/* Pagination Footer */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
           <span
             className={`${jetbrainsMono.className} text-[11px] text-white/25`}
           >
-            {start}–{end} of {total} prompts
+            {start}-{end} of {total} prompts
           </span>
 
           <HeroPagination size="sm">

@@ -70,7 +70,6 @@ const AddPromptForm = () => {
 
   const removeTag = (tag) => setTags(tags.filter((t) => t !== tag));
 
-  // Image select
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -78,7 +77,6 @@ const AddPromptForm = () => {
     setThumbnailPreview(URL.createObjectURL(file));
   };
 
-  // ImgBB upload
   const uploadToImgBB = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -91,14 +89,12 @@ const AddPromptForm = () => {
     return data.data.url;
   };
 
-  // Submit
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (tags.length === 0) return errorToast("Add at least one tag");
     if (!thumbnail) return errorToast("Please upload a thumbnail");
     const user = await getUserSession();
-    // console.log(user);
 
     setSubmitting(true);
 
@@ -106,7 +102,6 @@ const AddPromptForm = () => {
 
     const nativeForm = e.nativeEvent?.target || e.currentTarget;
     const formData = Object.fromEntries(new FormData(nativeForm));
-    console.log(formData);
 
     const payload = {
       userId: user?.id,
@@ -139,7 +134,6 @@ const AddPromptForm = () => {
         onSubmit={onSubmit}
         className="max-w-200 mx-auto flex flex-col gap-5"
       >
-        {/* Prompt Title */}
         <TextField isRequired name="title" className="flex flex-col gap-1.5">
           <Label
             className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -153,7 +147,6 @@ const AddPromptForm = () => {
           <FieldError className="text-[11px] text-red-400" />
         </TextField>
 
-        {/* Prompt Description */}
         <TextField
           isRequired
           name="description"
@@ -173,7 +166,6 @@ const AddPromptForm = () => {
           <FieldError className="text-[11px] text-red-400" />
         </TextField>
 
-        {/* Prompt Content */}
         <TextField isRequired name="content" className="flex flex-col gap-1.5">
           <Label
             className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -189,7 +181,6 @@ const AddPromptForm = () => {
           <FieldError className="text-[11px] text-red-400" />
         </TextField>
 
-        {/* Category + AI Tool */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
             <Label
@@ -250,7 +241,6 @@ const AddPromptForm = () => {
           </div>
         </div>
 
-        {/* Tags */}
         <div className="flex flex-col gap-1.5">
           <label
             className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -288,9 +278,7 @@ const AddPromptForm = () => {
           </div>
         </div>
 
-        {/* Difficulty + Visibility */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Difficulty */}
           <div className="flex flex-col gap-1.5">
             <label
               className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -315,7 +303,6 @@ const AddPromptForm = () => {
             </div>
           </div>
 
-          {/* Visibility */}
           <div className="flex flex-col gap-1.5">
             <Label
               className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -341,7 +328,6 @@ const AddPromptForm = () => {
           </div>
         </div>
 
-        {/* Thumbnail Upload */}
         <div className="flex flex-col gap-1.5">
           <Label
             className={`${jetbrainsMono.className} text-[10px] font-bold text-white/30 tracking-[0.12em] uppercase`}
@@ -392,7 +378,6 @@ const AddPromptForm = () => {
           </Label>
         </div>
 
-        {/* Submit */}
         <div className="flex gap-3 pt-2 pb-8">
           <Button
             type="reset"

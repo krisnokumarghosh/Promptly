@@ -1,4 +1,3 @@
-// components/home/UserReviews.jsx
 "use client";
 
 import Image from "next/image";
@@ -25,7 +24,6 @@ function StarDisplay({ rating }) {
 function ReviewCard({ review }) {
   return (
     <div className="mx-3 w-75 h-37.5 flex flex-col gap-3 bg-[#0d120d] border border-white/[0.07] hover:border-[#AAFF00]/20 rounded-[14px] p-5 transition-colors duration-200">
-      {/* Top */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full overflow-hidden flex-none border border-white/8">
@@ -52,7 +50,6 @@ function ReviewCard({ review }) {
         <StarDisplay rating={review.rating} />
       </div>
 
-      {/* Review */}
       <p className="text-[12.5px] text-white/40 leading-[1.75] line-clamp-4">
         {review.userReview}
       </p>
@@ -65,7 +62,6 @@ export default function UserReviews({ reviews = [] }) {
 
   return (
     <section className="bg-[#080d08] py-24 overflow-hidden">
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +82,6 @@ export default function UserReviews({ reviews = [] }) {
         </p>
       </motion.div>
 
-      {/* Single Row */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

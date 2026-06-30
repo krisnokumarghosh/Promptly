@@ -1,4 +1,3 @@
-// components/dashboard/PromptsList.jsx
 import { PromptCard } from "./PromptCard";
 
 export default function PromptsList({ prompts = [], onDelete }) {

@@ -1,4 +1,3 @@
-// components/dashboard/creator/PromptGrowthChart.jsx
 "use client";
 
 import { useState, useMemo } from "react";
@@ -10,9 +9,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  defs,
-  linearGradient,
-  stop,
+  
 } from "recharts";
 
 function CustomTooltip({ active, payload, label }) {
@@ -50,15 +47,12 @@ export default function PromptGrowthChart({ prompts = [] }) {
     const now = new Date();
     const cutoff = new Date(now - range * 24 * 60 * 60 * 1000);
 
-    // Filter prompts within range
     const filtered = prompts.filter(
       (p) => new Date(p.createdAt) >= cutoff
     );
 
-    // Group by date
     const grouped = {};
 
-    // Pre-fill all dates in range with 0
     for (let i = range; i >= 0; i--) {
       const d = new Date(now - i * 24 * 60 * 60 * 1000);
       const key = d.toLocaleDateString("en-US", {
@@ -68,7 +62,6 @@ export default function PromptGrowthChart({ prompts = [] }) {
       grouped[key] = 0;
     }
 
-    // Fill actual prompt counts
     filtered.forEach((p) => {
       const key = new Date(p.createdAt)
         .toLocaleDateString("en-US", {
@@ -81,7 +74,6 @@ export default function PromptGrowthChart({ prompts = [] }) {
       }
     });
 
-    // Cumulative
     let total = 0;
     return Object.entries(grouped).map(([date, count]) => {
       total += count;
@@ -89,13 +81,11 @@ export default function PromptGrowthChart({ prompts = [] }) {
     });
   }, [prompts, range]);
 
-  // Show only ~5 ticks on X axis
   const tickInterval = Math.floor(chartData.length / 4);
 
   return (
     <div className="bg-[#0d120d] border border-white/[0.07] rounded-4xl p-5 mt-8 md:mt-20">
 
-      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
           <p className="text-[14px] font-semibold text-white">
@@ -106,7 +96,6 @@ export default function PromptGrowthChart({ prompts = [] }) {
           </p>
         </div>
 
-        {/* Range toggle */}
         <div className={`${jetbrainsMono.className} flex items-center gap-1 bg-white/4 border border-white/8 rounded-2xl p-1`}>
           {[7, 30].map((r) => (
             <button
@@ -124,7 +113,6 @@ export default function PromptGrowthChart({ prompts = [] }) {
         </div>
       </div>
 
-      {/* Chart */}
       <ResponsiveContainer width="100%" height={220}>
         <AreaChart
           data={chartData}

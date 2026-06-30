@@ -29,7 +29,6 @@ const UserAddPromptPage = async () => {
           live.
         </p>
 
-        {/* Prompt limit bar */}
         {!isPro && (
           <div className="inline-flex flex-col items-center gap-2 lg:items-center">
             <div className="flex items-center justify-between w-64 mb-1">
@@ -65,7 +64,6 @@ const UserAddPromptPage = async () => {
               </ProgressBar.Track>
             </ProgressBar>
 
-            {/* Status message */}
             <p
               className={`${jetbrainsMono.className} text-[10px] mt-1 ${
                 isMaxed ? "text-red-400" : "text-white/25"
@@ -76,7 +74,6 @@ const UserAddPromptPage = async () => {
                 : `${remaining} prompt${remaining !== 1 ? "s" : ""} remaining on free plan`}
             </p>
 
-            {/* Upgrade CTA */}
             {isMaxed && (
               <Link
                 href="/pricing"
@@ -88,7 +85,6 @@ const UserAddPromptPage = async () => {
           </div>
         )}
 
-        {/* Pro badge */}
         {isPro && (
           <div
             className={`${jetbrainsMono.className} inline-flex items-center gap-2 bg-[#AAFF00]/10 border border-[#AAFF00]/20 text-[#AAFF00] text-[10px] font-bold px-3 py-1.5 rounded-full`}
@@ -99,7 +95,6 @@ const UserAddPromptPage = async () => {
         )}
       </div>
 
-      {/* Block form if maxed */}
       {isMaxed ? (
         <div className="flex flex-col items-center justify-center py-16 gap-4 bg-[#0d120d] border border-white/[0.07] rounded-4xl">
           <div className="w-12 h-12 rounded-3xl bg-red-500/8 border border-red-500/20 flex items-center justify-center">

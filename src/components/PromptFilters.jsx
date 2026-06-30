@@ -1,9 +1,7 @@
-// components/prompts/PromptFilters.jsx
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useTransition } from "react";
-import { jetbrainsMono } from "@/lib/fonts";
 import { Magnifier, Xmark } from "@gravity-ui/icons";
 import { Button, Input, ListBox, Select } from "@heroui/react";
 
@@ -48,7 +46,7 @@ export default function PromptFilters() {
       } else {
         params.delete(key);
       }
-      params.set("page", "1"); // reset page on filter change
+      params.set("page", "1");
       startTransition(() => {
         router.push(`${pathname}?${params.toString()}`);
       });
@@ -75,7 +73,6 @@ export default function PromptFilters() {
     <div
       className={`mb-10 space-y-5 ${isPending ? "opacity-60 pointer-events-none" : ""} transition-opacity`}
     >
-      {/* Search bar */}
       <div className="relative">
         <Magnifier
           size={15}
@@ -106,9 +103,7 @@ export default function PromptFilters() {
         )}
       </div>
 
-      {/* Filters + Sort row */}
       <div className="flex flex-wrap gap-2 items-center ">
-        {/* Category */}
         <Select
           value={current.category}
           onChange={(value) => updateParam("category", value)}
@@ -135,7 +130,6 @@ export default function PromptFilters() {
           </Select.Popover>
         </Select>
 
-        {/* AI Tool */}
         <Select
           value={current.category}
           onChange={(value) => updateParam("aiTool", value)}
@@ -162,7 +156,6 @@ export default function PromptFilters() {
           </Select.Popover>
         </Select>
 
-        {/* Difficulty */}
         <Select
           value={current.category}
           onChange={(value) => updateParam("difficulty", value)}
@@ -189,10 +182,8 @@ export default function PromptFilters() {
           </Select.Popover>
         </Select>
 
-        {/* Divider */}
         <div className="w-px h-5 bg-white/10 mx-1" />
 
-        {/* Sort */}
         <div className="flex gap-1.5">
           {SORTS.map((s) => (
             <button
@@ -209,10 +200,8 @@ export default function PromptFilters() {
           ))}
         </div>
 
-        {/* Clear all */}
         {hasFilters && (
           <Button
-          
             onClick={clearAll}
             className="ml-auto text-[11px] bg-transparent flex items-center gap-1 transition-colors"
           >

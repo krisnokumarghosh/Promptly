@@ -61,7 +61,6 @@ const SigninPage = () => {
       className="min-h-screen w-full pt-30 pb-20 px-4 md:px-10 flex items-center justify-center "
       style={{ background: "#0a0a0a" }}
     >
-      {/* Ambient glow blobs */}
       <div
         className="pointer-events-none fixed inset-0 overflow-hidden"
         aria-hidden
@@ -78,7 +77,6 @@ const SigninPage = () => {
 
       {/* Card */}
       <div className="relative z-10 w-full max-w-5xl rounded-2xl overflow-hidden  md:flex  shadow-2xl bg-[#111111] ">
-        {/* ── LEFT PANEL ── */}
         <div
           className=" flex flex-col gap-10 justify-between md:w-5/12 p-10 relative overflow-hidden"
           style={{
@@ -86,7 +84,6 @@ const SigninPage = () => {
               "linear-gradient(145deg, #1a2a0a 0%, #0d1a06 40%, #0a0a0a 100%)",
           }}
         >
-          {/* Crosshatch grid */}
           <svg
             className="absolute inset-0 w-full h-full opacity-10"
             xmlns="http://www.w3.org/2000/svg"
@@ -109,13 +106,11 @@ const SigninPage = () => {
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
 
-          {/* Lime glow orb */}
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full opacity-25 blur-3xl"
             style={{ background: "#a3e635" }}
           />
 
-          {/* Logo */}
           <div className="relative z-10 flex items-center gap-2">
             <span className="text-[#95FF00] font-extrabold text-[18px] leading-none">
               <ImTerminal />
@@ -125,7 +120,6 @@ const SigninPage = () => {
             </span>
           </div>
 
-          {/* Hero copy */}
           <div className="relative z-10 space-y-4">
             <h2
               className=" text-2xl md:text-4xl font-extrabold leading-tight mt-5 md:mt-0"
@@ -173,9 +167,7 @@ const SigninPage = () => {
           </div>
         </div>
 
-        {/* ── RIGHT PANEL ── */}
         <div className="flex-1 p-8 md:p-12 flex flex-col justify-center ">
-          {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold mb-1 text-[#f9fafb]">Sign In</h1>
             <p className="text-sm text-[#6b7280]">
@@ -183,7 +175,6 @@ const SigninPage = () => {
             </p>
           </div>
 
-          {/* OAuth buttons */}
           <div className=" mb-6">
             <Button
               onClick={handleGoogleSignIn}
@@ -193,7 +184,6 @@ const SigninPage = () => {
             </Button>
           </div>
 
-          {/* Divider */}
           <div className="flex items-center gap-3 mb-6">
             <div className="flex-1 h-px" style={{ background: "#1f1f1f" }} />
             <span className="text-xs" style={{ color: "#4b5563" }}>
@@ -202,7 +192,6 @@ const SigninPage = () => {
             <div className="flex-1 h-px" style={{ background: "#1f1f1f" }} />
           </div>
 
-          {/* Form */}
           <Form className="flex flex-col gap-4" onSubmit={handleSignIn}>
             <TextField
               isRequired
@@ -223,7 +212,6 @@ const SigninPage = () => {
               <FieldError className="text-xs mt-1 text-red-400" />
             </TextField>
 
-            {/* Password */}
             <TextField
               isRequired
               minLength={8}
@@ -257,7 +245,6 @@ const SigninPage = () => {
               <FieldError className="text-xs mt-1 text-red-400" />
             </TextField>
 
-            {/* Submit */}
             <Button
               type="submit"
               className="w-full py-3 rounded-lg font-semibold text-sm mt-1 transition-all duration-150 hover:opacity-90 active:scale-95 bg-[#95FF00] text-black"
@@ -265,8 +252,6 @@ const SigninPage = () => {
               {signingIn ? "Signing In..." : " Sign In →"}
             </Button>
           </Form>
-
-          {/* Footer */}
 
           <p className="text-xs text-center mt-3" style={{ color: "#4b5563" }}>
             Already have an account?{" "}

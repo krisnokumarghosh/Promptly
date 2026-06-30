@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Bars, FolderCode, Magnifier } from "@gravity-ui/icons";
+import { Bars,  } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { jetbrainsMono } from "@/lib/fonts";
 import { ImTerminal } from "react-icons/im";

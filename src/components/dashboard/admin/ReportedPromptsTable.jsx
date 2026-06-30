@@ -1,4 +1,3 @@
-// components/dashboard/admin/ReportedPromptsTable.jsx
 "use client";
 
 import Image from "next/image";
@@ -40,7 +39,7 @@ export default function ReportedPromptsTable({ reports = [] }) {
 
   const handleWarnCreator = async (promptId, reportCategory) => {
     try {
-      console.log(promptId, reportCategory);
+      (promptId, reportCategory);
       const data = {
         warning: reportCategory,
       };
@@ -71,7 +70,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
   return (
     <div className="w-full overflow-x-auto rounded-[14px] border border-white/[0.07] bg-[#0d120d]">
       <table className="w-full min-w-225 border-collapse">
-        {/* Head */}
         <thead>
           <tr>
             <th className={thClass}>Prompt</th>
@@ -83,13 +81,11 @@ export default function ReportedPromptsTable({ reports = [] }) {
           </tr>
         </thead>
 
-        {/* Body */}
         <tbody>
           {reports.length === 0 ? (
             <tr>
               <td colSpan={6} className="py-20">
                 <div className="flex flex-col items-center justify-center gap-4">
-                  {/* Icon */}
                   <div className="w-14 h-14 rounded-[14px] bg-[#AAFF00]/6 border border-[#AAFF00]/15 flex items-center justify-center">
                     <svg
                       width="24"
@@ -106,7 +102,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                     </svg>
                   </div>
 
-                  {/* Text */}
                   <div className="text-center">
                     <p className="text-[14px] font-semibold text-white/50 mb-1">
                       No reports found
@@ -126,7 +121,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                 key={report._id}
                 className="border-b border-white/4 hover:bg-white/2 transition-colors"
               >
-                {/* Prompt */}
                 <td className={tdClass}>
                   {report.prompt ? (
                     <div className="flex items-center gap-3">
@@ -160,7 +154,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                   )}
                 </td>
 
-                {/* Report Category */}
                 <td className={tdClass}>
                   <span
                     className={`${jetbrainsMono.className} text-[10px] font-bold px-2.5 py-1 rounded-md ${CATEGORY_STYLES[report.category] ?? CATEGORY_STYLES.Other}`}
@@ -169,14 +162,12 @@ export default function ReportedPromptsTable({ reports = [] }) {
                   </span>
                 </td>
 
-                {/* Description */}
                 <td className={tdClass}>
                   <p className="text-[12px] text-white/45 max-w-50 line-clamp-2 leading-[1.6]">
                     {report.description}
                   </p>
                 </td>
 
-                {/* Reported By */}
                 <td className={tdClass}>
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-[#AAFF00]/10 border border-[#AAFF00]/15 flex items-center justify-center flex-none">
@@ -192,7 +183,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                   </div>
                 </td>
 
-                {/* Date */}
                 <td className={tdClass}>
                   <span
                     className={`${jetbrainsMono.className} text-[11px] text-white/30`}
@@ -205,10 +195,8 @@ export default function ReportedPromptsTable({ reports = [] }) {
                   </span>
                 </td>
 
-                {/* Actions */}
                 <td className={tdClass}>
                   <div className="flex items-center gap-2">
-                    {/* Remove Prompt */}
                     <button
                       onClick={() =>
                         handleRemovePrompt(report.promptId, report._id)
@@ -220,7 +208,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                       Remove
                     </button>
 
-                    {/* Warn Creator */}
                     <button
                       onClick={() =>
                         handleWarnCreator(report.promptId, report.category)
@@ -242,7 +229,6 @@ export default function ReportedPromptsTable({ reports = [] }) {
                       )}
                     </button>
 
-                    {/* Dismiss */}
                     <button
                       onClick={() => handleDismiss(report._id)}
                       title="Dismiss - Not Harmful"

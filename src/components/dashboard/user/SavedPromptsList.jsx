@@ -1,9 +1,7 @@
-// components/dashboard/SavedPromptsList.jsx
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { jetbrainsMono } from "@/lib/fonts";
 import { Eye, TrashBin, Bookmark } from "@gravity-ui/icons";
 import { successToast, errorToast } from "@/lib/toasts";
@@ -18,13 +16,11 @@ const DIFFICULTY_STYLES = {
 
 function SavedPromptCard({ item, onDelete }) {
   const { prompt, _id: bookmarkId, createdAt } = item;
-  console.log(prompt);
 
   if (!prompt) return null;
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#0d120d] border border-white/[0.07] hover:border-white/12 rounded-[14px] p-4 transition-colors group">
-      {/* Thumbnail */}
       <div className="w-full sm:w-16 h-32 sm:h-16 rounded-[10px] overflow-hidden flex-none border border-white/8">
         <Image
           src={prompt.thumbnail}
@@ -35,7 +31,6 @@ function SavedPromptCard({ item, onDelete }) {
         />
       </div>
 
-      {/* Info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap mb-1.5">
           <p className="text-[14px] font-semibold text-white truncate">
@@ -75,7 +70,6 @@ function SavedPromptCard({ item, onDelete }) {
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex items-center gap-2 flex-none">
         <Link
           href={`/all-prompts/${prompt._id}`}

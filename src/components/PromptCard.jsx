@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { jetbrainsMono } from "@/lib/fonts";
@@ -8,7 +7,6 @@ import { Button, Chip } from "@heroui/react";
 export default function PromptCard({ prompt }) {
   return (
     <div className="group bg-[#0d120d] border border-white/[0.07] rounded-[14px] overflow-hidden hover:border-white/15 transition-all duration-200 flex flex-col">
-      {/* Thumbnail */}
       <div className="relative w-full aspect-video bg-[#0a0f0a] overflow-hidden">
         {prompt.thumbnail ? (
           <Image
@@ -27,14 +25,12 @@ export default function PromptCard({ prompt }) {
           </div>
         )}
 
-        {/* AI Tool badge overlay */}
         <div className="absolute top-2 left-2">
           {prompt.visibility === "Private" && (
             <Chip color="danger">Premium</Chip>
           )}
         </div>
 
-        {/* Difficulty badge overlay */}
         {prompt.difficulty && (
           <div className="absolute top-2 right-2">
             <Chip
@@ -52,27 +48,22 @@ export default function PromptCard({ prompt }) {
         )}
       </div>
 
-      {/* Content */}
       <div className="p-3.5 flex flex-col flex-1">
-        {/* Category */}
         <span
           className={`${jetbrainsMono.className} text-[9px] font-bold tracking-widest uppercase text-[#AAFF00]/60 mb-1.5`}
         >
           {prompt.category}
         </span>
 
-        {/* Title */}
         <h3 className="text-white text-[13px] md:text-[16px] font-semibold leading-snug mb-2 line-clamp-2 flex-1">
           {prompt.title}
         </h3>
 
-        {/* Creator */}
         <p className="text-white/30 text-[12px] mb-3">
           by{" "}
           <span className="text-white/50">{prompt.userName ?? "Unknown"}</span>
         </p>
 
-        {/* Footer */}
         <div className="flex items-center justify-between pt-2.5 border-t border-white/5">
           <div className="flex items-center gap-1 text-white/30 text-[11px]">
             <Copy size={11} />

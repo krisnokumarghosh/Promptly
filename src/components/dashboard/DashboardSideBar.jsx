@@ -1,4 +1,3 @@
-// components/dashboard/Sidebar.jsx
 "use client";
 
 import Link from "next/link";
@@ -136,7 +135,6 @@ function UserCard({ user }) {
 export default function Sidebar({ user }) {
   return (
     <>
-      {/* Desktop sidebar */}
       <aside className="hidden md:flex w-60 flex-none h-screen sticky top-0 flex-col bg-[#080d08e3] border-r border-white/6">
         <Link
           href="/"
@@ -161,7 +159,6 @@ export default function Sidebar({ user }) {
         </div>
       </aside>
 
-      {/* Mobile drawer */}
       <div className="md:hidden flex justify-between items-center h-10 border-b border-white/5 px-4 py-6">
         <Drawer>
           <Button className="bg-transparent ">

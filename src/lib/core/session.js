@@ -16,7 +16,6 @@ export const getUserToken = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  console.log(session);
   
 
   return session?.session?.token || null;
