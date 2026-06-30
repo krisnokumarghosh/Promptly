@@ -1,4 +1,3 @@
-// components/prompt/PromptDetails.jsx
 "use client";
 
 import Image from "next/image";
@@ -9,11 +8,9 @@ import {
   Bookmark,
   Copy,
   Star,
-  Flag,
   Lock,
   Check,
-  Person,
-  Clock,
+ 
 } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
 import { errorToast, successToast } from "@/lib/toasts";
@@ -23,13 +20,9 @@ import PromptReportModal from "./PromptReportModal";
 import { addBookmark, deleteBookmark } from "@/lib/actions/bookmarks";
 import { submitReview } from "@/lib/actions/reviews";
 
-const DIFFICULTY_STYLES = {
-  Beginner: "bg-[#AAFF00]/10 text-[#AAFF00] border border-[#AAFF00]/20",
-  Intermediate: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
-  Pro: "bg-purple-500/10 text-purple-400 border border-purple-500/20",
-};
 
-// ── Blurred/locked content overlay ──────────────────────────────
+
+
 function PremiumLock() {
   return (
     <div className="relative rounded-3xl overflow-hidden">
@@ -59,7 +52,6 @@ function PremiumLock() {
   );
 }
 
-// ── Star Rating ──────────────────────────────────────────────────
 function StarRating({ value = 0, onChange }) {
   const [hover, setHover] = useState(0);
   return (
@@ -85,7 +77,6 @@ function StarRating({ value = 0, onChange }) {
   );
 }
 
-// ── Main Component ───────────────────────────────────────────────
 export default function PromptDetails({
   prompt,
   user,
@@ -103,7 +94,6 @@ export default function PromptDetails({
   const isLocked = isPremium && !hasAccess;
   const isBookmarked = bookMarks.find((b) => b.promptId === prompt._id);
 
-  // Copy prompt
   const handleCopy = async () => {
     if (isLocked) return;
     try {
@@ -118,7 +108,6 @@ export default function PromptDetails({
     }
   };
 
-  // Bookmark toggle
   const handleBookmark = async () => {
     try {
       if (!isBookmarked) {
@@ -141,7 +130,6 @@ export default function PromptDetails({
     }
   };
 
-  // Submit review
   const handleReviewSubmit = async () => {
     if (!userRating) return errorToast("Please select a rating");
     if (!review.trim()) return errorToast("Please write a review");
@@ -169,7 +157,6 @@ export default function PromptDetails({
 
   return (
     <div className="max-w-215 mx-auto px-4 py-10 flex flex-col gap-8">
-      {/* ── Hero ── */}
       <div className="relative w-full h-65 md:h-80 rounded-4xl overflow-hidden border border-white/[0.07]">
         <Image
           src={prompt.thumbnail}
@@ -179,7 +166,6 @@ export default function PromptDetails({
         />
         <div className="absolute inset-0 bg-linear-to-t from-[#080d08] via-[#080d08]/40 to-transparent" />
 
-        {/* Title on image */}
         <div className="absolute bottom-5 left-5 right-5">
           <h1 className="text-[22px] md:text-[28px] font-extrabold text-white tracking-tight leading-[1.2]">
             {prompt.title}
@@ -187,12 +173,9 @@ export default function PromptDetails({
         </div>
       </div>
 
-      {/* ── Action bar ── */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
-          {/* Copy */}
 
-          {/* Bookmark */}
           <Button
             onClick={handleBookmark}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-[12px] font-bold  transition-all bg-[#AAFF00] hover:bg-[#BFFF33] text-[#0a0a0a]`}
@@ -207,14 +190,11 @@ export default function PromptDetails({
           </Button>
         </div>
 
-        {/* Report */}
         {!isLocked && <PromptReportModal prompt={prompt} user={user} />}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* ── Left / Main ── */}
         <div className="md:col-span-2 flex flex-col gap-6">
-          {/* Description */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-3`}
@@ -226,7 +206,6 @@ export default function PromptDetails({
             </p>
           </div>
 
-          {/* Prompt Content */}
           <div className="flex flex-col gap-3">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase`}
@@ -237,7 +216,6 @@ export default function PromptDetails({
               <PremiumLock />
             ) : (
               <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] overflow-hidden">
-                {/* Terminal Header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/6 bg-white/2">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
@@ -249,7 +227,6 @@ export default function PromptDetails({
                   >
                     prompt.txt
                   </span>
-                  {/* Copy icon */}
                   <Button
                     onClick={handleCopy}
                     title="Copy Prompt"
@@ -267,7 +244,6 @@ export default function PromptDetails({
                   </Button>
                 </div>
 
-                {/* Content */}
                 <div className="px-5 py-5">
                   <p
                     className={`${jetbrainsMono.className} text-[13px] text-white/70 leading-[1.9] whitespace-pre-wrap`}
@@ -279,7 +255,6 @@ export default function PromptDetails({
             )}
           </div>
 
-          {/* Usage Instructions */}
           <div className="bg-[#0d120d] border border-white/[0.07] rounded-[14px] p-5">
             <p
               className={`${jetbrainsMono.className} text-[10px] font-bold text-[#95FF00] tracking-[0.12em] uppercase mb-3`}

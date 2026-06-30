@@ -3,6 +3,7 @@
 import { typeAnimation } from "@/lib/animations";
 import { jetbrainsMono } from "@/lib/fonts";
 import { Fingerprint, PlugWire, Rocket } from "@gravity-ui/icons";
+import { motion } from "framer-motion";
 
 const FEATURES = [
   {
@@ -28,20 +29,60 @@ const TERMINAL_LINES = [
   { label: "Temperature calibration:", value: "0.7" },
 ];
 
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
+  },
+});
+
+const containerVariant = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const featureItemVariant = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 const BuiltForNextEra = () => {
   return (
     <section className="bg-[#080d08] py-10 md:py-24 px-6">
       <div className="max-w-225 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+        {/* Left */}
         <div>
-          <h2 className="text-[clamp(28px,3.5vw,42px)] font-extrabold text-white leading-[1.2] tracking-tight mb-10">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp(0)}
+            className="text-[clamp(28px,3.5vw,42px)] font-extrabold text-white leading-[1.2] tracking-tight mb-10"
+          >
             Built for the <br />
             <span className="text-[#AAFF00]">Next Era of Work</span>
-          </h2>
-          <div className="flex flex-col gap-7">
+          </motion.h2>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={containerVariant}
+            className="flex flex-col gap-7"
+          >
             {FEATURES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4">
+              <motion.div key={title} variants={featureItemVariant} className="flex gap-4">
                 <div className="w-9 h-9 bg-[#AAFF00]/8 border border-[#AAFF00]/20 rounded-[9px] flex items-center justify-center flex-none mt-0.5">
-                  <p className="text-[#AAFF00] ">{icon}</p>
+                  <p className="text-[#AAFF00]">{icon}</p>
                 </div>
                 <div>
                   <p className="text-[14px] font-bold text-white mb-1.5">
@@ -51,12 +92,19 @@ const BuiltForNextEra = () => {
                     {desc}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        <div className="relative flex items-center justify-center">
+        {/* Right — Terminal */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp(0.25)}
+          className="relative flex items-center justify-center"
+        >
           <div className="relative z-10 w-full bg-[#111711] border border-white/8 rounded-[14px] overflow-hidden">
             <div className="flex items-center gap-1.75 px-4 py-3.5 border-b border-white/6 bg-white/2">
               <span className="w-2.75 h-2.75 rounded-full bg-[#ff5f57]" />
@@ -64,9 +112,7 @@ const BuiltForNextEra = () => {
               <span className="w-2.75 h-2.75 rounded-full bg-[#28c840]" />
             </div>
 
-            <div
-              className={`${jetbrainsMono.className} px-5 py-5 text-[12px] leading-[1.8]`}
-            >
+            <div className={`${jetbrainsMono.className} px-5 py-5 text-[12px] leading-[1.8]`}>
               <p className="text-[#AAFF00]/35 text-[10px] tracking-widest mb-3">
                 — INITIATING NEURAL RECONSTRUCTION —
               </p>
@@ -87,9 +133,11 @@ const BuiltForNextEra = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
 };
+
 export default BuiltForNextEra;
